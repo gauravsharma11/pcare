@@ -21,7 +21,7 @@
 			<form class="form-horizontal" role="form">
 				<h2>Registration Form</h2>
 				<div class="form-group">
-					<label for="firstName" class="col-sm-3 control-label">Full
+					<label for="firstName" class="col-sm-3 control-label">F
 						Name</label>
 					<div class="col-sm-9">
 						<input type="text" id="firstName" name="name"
