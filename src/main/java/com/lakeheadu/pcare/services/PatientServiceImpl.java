@@ -2,6 +2,7 @@ package com.lakeheadu.pcare.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -14,15 +15,16 @@ import com.lakeheadu.pcare.models.Patient;
 @Service
 public class PatientServiceImpl implements PatientService {
 	
-	
 	@Autowired
 	PatientDAO patientDAO;
 
 	@Transactional
 	public boolean savePatient(Patient patient) {
 		
-		patientDAO.save(patient);
-		return false;
+		if(patientDAO.save(patient) == null)
+			return false;
+		else 
+			return true;
 	}
 	
 	@Transactional
@@ -40,6 +42,15 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = patientDAO.findById(id);
 		
 		return patient;
+	}
+
+	@Override
+	public boolean savePatients(List<Patient> patient) {
+		
+		if(patientDAO.save(patient) == null)
+			return false;
+		else 
+			return true;
 	}
 	
 }

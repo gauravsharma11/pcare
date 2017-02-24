@@ -1,7 +1,5 @@
 package com.lakeheadu.pcare.models;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.joda.time.LocalDate;
 
 @Entity
 @Table
@@ -52,12 +52,17 @@ public class Patient {
 	@OneToOne
 	private Medical medical;
 	
-	public Patient(String name, int age, LocalDate dateOfBirth, boolean gender, String address, String city,
+	public Patient()
+	{
+		
+	}
+	
+	public Patient(String name, int age, LocalDate localDate, boolean gender, String address, String city,
 			String emailId, String province, int visits, String contactNumber) {
 		super();
 		this.name = name;
 		this.age = age;
-		this.dateOfBirth = dateOfBirth;
+		this.dateOfBirth = localDate;
 		this.gender = gender;
 		this.address = address;
 		this.city = city;

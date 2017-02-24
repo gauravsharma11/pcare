@@ -28,4 +28,16 @@ public class Staff {
 	@OneToMany
 	private List<Doctor> doctor;
 	
+	public Staff()
+	{
+		
+	}
+
+	public Staff(String name, List<Patient> patient, List<Doctor> doctor) {
+		super();
+		this.name = name;
+		this.patient = patient;
+		this.doctor = doctor;
+	}
+	
 }

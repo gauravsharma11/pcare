@@ -24,7 +24,7 @@ public class Doctor {
 	private String name;
 
 	@Column
-	private int age;
+	private String speciality;
 
 	@Column
 	private LocalDate dateOfBirth;
@@ -42,9 +42,6 @@ public class Doctor {
 	private String province;
 
 	@Column
-	private int visits;
-
-	@Column
 	private String contactNumber;
 	
 	@Column
@@ -53,17 +50,21 @@ public class Doctor {
 	@OneToMany
 	private List<Patient> patient;
 	
-	public Doctor(String name, int age, LocalDate dateOfBirth, boolean gender, String address, String city,
-			String province, int visits, String contactNumber, String emailId, List<Patient> patient) {
+	public Doctor()
+	{
+		
+	}
+	
+	public Doctor(String name, String speciality, LocalDate dateOfBirth, boolean gender, String address, String city,
+			String province, String contactNumber, String emailId, List<Patient> patient) {
 		super();
 		this.name = name;
-		this.age = age;
+		this.speciality = speciality;
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
 		this.address = address;
 		this.city = city;
 		this.province = province;
-		this.visits = visits;
 		this.contactNumber = contactNumber;
 		this.emailId = emailId;
 		this.patient = patient;
@@ -77,12 +78,16 @@ public class Doctor {
 		this.name = name;
 	}
 
-	public int getAge() {
-		return age;
+	public String getSpeciality() {
+		return speciality;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setSpeciality(String speciality) {
+		this.speciality = speciality;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public LocalDate getDateOfBirth() {
@@ -123,14 +128,6 @@ public class Doctor {
 
 	public void setProvince(String province) {
 		this.province = province;
-	}
-
-	public int getVisits() {
-		return visits;
-	}
-
-	public void setVisits(int visits) {
-		this.visits = visits;
 	}
 
 	public String getContactNumber() {

@@ -10,28 +10,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lakeheadu.pcare.models.Patient;
 
 @Controller
-public class MainController {
-	
+public class MainController 
+{
 	@RequestMapping("/")
-	public String showHomePage(){
+	public String showHomePage()
+	{
 		return "index";
 	}
-	
+
 	@RequestMapping("/login")
-	public String loginPage(){
+	public String loginPage() 
+	{
 		return "login";
 	}
-
-	 @RequestMapping(value="/Adduser",method=RequestMethod.POST)
-	    public @ResponseBody String addUser(@RequestBody Patient patient, BindingResult result ){
-	        String returnText;
-	        if(!result.hasErrors()){
-	        //  userList.add(user);
-	            returnText = "User has been added to the list. Total number of users are "+patient.getName();
-	        }else{
-	            returnText = "Sorry, an error has occur. User has not been added to list.";
-	        }
-	        return returnText;
-	    }
-
 }
