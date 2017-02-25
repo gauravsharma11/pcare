@@ -20,7 +20,7 @@ public class PatientController {
 	
 	@RequestMapping("/patients")
 	public List<Patient> getAllPatients() {
-		return patientService.getAllPatients();
+		return patientService.getAllPatients() ;
 	}
 
 	@RequestMapping("/patients/{id}")
