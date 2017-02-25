@@ -1,59 +1,42 @@
 <!--
 Author: Sarwagya Khosla
 -->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page session="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
 <title>Patient Care</title>
-<link href="<c:url value="/resources/css/bootstrap-3.1.1.min.css"/>"
-	rel='stylesheet' type='text/css' />
-<link href="<c:url value="/resources/css/style.css"/>" rel='stylesheet'
-	type='text/css' media='all' />
-<link href="<c:url value="/resources/css/AdminLTE.min.css"/>"
-	rel='stylesheet' type='text/css' />
+	
+	<link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/custom.css"/>" rel='stylesheet' type='text/css' />
+	
+	<link href="<c:url value="/resources/css/bootstrap.css"/>"rel='stylesheet' type='text/css' />
+	<link href="<c:url value="/resources/css/style.css"/>" rel='stylesheet'type='text/css' media='all' />
+	<link href="<c:url value="/resources/css/AdminLTE.min.css"/>" rel='stylesheet' type='text/css' />
+	<link href="<c:url value="/resources/css/LoginPage.css"/>" rel='stylesheet' type='text/css' />
+	
+	<!--fonts-->
+	<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+	<!--//fonts-->
 
-<!-- for-mobile-apps -->
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //for-mobile-apps -->
+	<script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
+	
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.79639.js"/>"></script>
+	
+	<!-- Common Script for sendind data to controller -->
+	<script type="text/javascript" src="<c:url value="/resources/js/common/common.js"/>"></script>
+	
 
-<!--fonts-->
-<link href='//fonts.googleapis.com/css?family=Poiret+One'
-	rel='stylesheet' type='text/css'>
-<link
-	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
-	rel='stylesheet' type='text/css'>
-<!--//fonts-->
-
-<!-- js -->
-<script type="text/javascript" src="/resources/js/jquery-3.1.1.min.js"></script>
-<!-- js -->
-
-<script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-<script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/resources/js/modernizr.custom.79639.js"/>"></script>
-
-<!-- Common Script for sendind data to controller -->
-<script type="text/javascript"
-	src="<c:url value="/resources/js/common/common.js"/>"></script>
-
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/font-awesome.min.css"/>"
-	rel='stylesheet' type='text/css' />
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/custom.css"/>" rel='stylesheet'
-	type='text/css' />
 
 </head>
 
@@ -107,67 +90,63 @@ Author: Sarwagya Khosla
 
 
 	<section class="about">
-	<div class="inner-banner demo-2 text-center">
-		<header class="logo">
-		<h1>
-			<a class="cd-logo link link--takiri" href="index.html">P-Care <span>Effective
-					Patient Care.</span></a>
-		</h1>
-		</header>
-		<div id="breadcrumb_wrapper">
-			<div class="container">
-				<h2>P-Care</h2>
-				<h6>We Care for our Customer</h6>
+		<div class="inner-banner demo-2 text-center">
+			<header class="logo">
+				<h1>
+					<a class="cd-logo link link--takiri" href="index.html">P-Care</a>
+				</h1>
+			</header>
+			<div id="breadcrumb_wrapper">
+				<div class="container">
+					<h2>P-Care</h2>
+					<h6>We Care for our Customer</h6>
+				</div>
 			</div>
 		</div>
-	</div>
-
-<div class="form-grid">
-  <div class="wrapper">
-    <form class="form-signin">       
-      <h2 class="form-signin-heading">Please login</h2>
-      <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
-      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
-      <label class="checkbox">
-        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-      </label>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
-    </form>
-  </div>
-  </div>
-
-
-	<table>
-		<tr>
-			<td>Enter your name :</td>
-			<td><input type="text" id="name"><br /></td>
-		</tr>
-		<tr>
-			<td>Education :</td>
-			<td><input type="text" id="education"><br /></td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="button" value="Add Users"
-				onclick="doAjaxPost()"><br /></td>
-		</tr>
-		<tr>
-			<td colspan="2"><div id="info" style="color: green;"></div></td>
-		</tr>
-	</table>
-
+		<c:url var="addAction" value="/authenticateUser" ></c:url>
+		<form:form action="${addAction}" commandName = "login" method="POST">
+			<div class="login-box">
+		      <div class="login-box-body">
+		        <p class="login-box-msg">Sign in to start your session</p>
+		          <div class="form-group has-feedback">
+		            <input type="text" id="emailId" name="emailId" class="form-control" placeholder="Email">
+		            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+		          </div>
+		          <div class="form-group has-feedback">
+		            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+		            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+		          </div>
+		          <div class="row">
+		            <div class="col-xs-8">
+		              <div class="checkbox icheck">
+		                <label class="">
+		                  <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> Remember Me
+		                </label>
+		              </div>
+		            </div><!-- /.col -->
+		            <div class="col-xs-4">
+		              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+		            </div><!-- /.col -->
+		          </div>
+		
+		        <!-- /.social-auth-links -->
+		        <a href="#">I forgot my password</a><br>
+		        <a href="register.html" class="text-center">Register a new membership</a>
+		
+		      </div><!-- /.login-box-body -->
+		    </div>
+	    </form:form>
 	</section>
-
-
 	<footer>
-	<div class="copy-right-grids">
-		<div class="container">
-			<div class="copy-left">
-				<p class="footer-gd">© 2017 Prevention. All Rights Reserved.</p>
+		<div class="copy-right-grids">
+			<div class="container">
+				<div class="copy-left">
+					<p class="footer-gd">© 2017 Prevention. All Rights Reserved.</p>
+				</div>
+	
+				<div class="clearfix"></div>
 			</div>
-
-			<div class="clearfix"></div>
 		</div>
-	</div>
 	</footer>
 
 

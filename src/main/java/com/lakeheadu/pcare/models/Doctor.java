@@ -1,8 +1,6 @@
 package com.lakeheadu.pcare.models;
 
-import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.joda.time.LocalDate;
 
 @Entity
 @Table
@@ -47,27 +47,31 @@ public class Doctor {
 	@Column
 	private String emailId;
 	
-	@OneToMany
-	private List<Patient> patient;
+	@Column
+	private String password;
+	
+//	@OneToMany
+//	private List<Patient> patient;
 	
 	public Doctor()
 	{
 		
 	}
 	
-	public Doctor(String name, String speciality, LocalDate dateOfBirth, boolean gender, String address, String city,
-			String province, String contactNumber, String emailId, List<Patient> patient) {
+	public Doctor(String name, String speciality, LocalDate localDate, boolean gender, String password, String address, String city,
+			String province, String contactNumber, String emailId) {
 		super();
 		this.name = name;
 		this.speciality = speciality;
-		this.dateOfBirth = dateOfBirth;
+		this.dateOfBirth = localDate;
 		this.gender = gender;
+		this.password = password;
 		this.address = address;
 		this.city = city;
 		this.province = province;
 		this.contactNumber = contactNumber;
 		this.emailId = emailId;
-		this.patient = patient;
+//		this.patient = patient;
 	}
 
 	public String getName() {
@@ -88,6 +92,14 @@ public class Doctor {
 
 	public int getId() {
 		return id;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public LocalDate getDateOfBirth() {
@@ -146,12 +158,12 @@ public class Doctor {
 		this.emailId = emailId;
 	}
 
-	public List<Patient> getPatient() {
+/*	public List<Patient> getPatient() {
 		return patient;
 	}
 
 	public void setPatient(List<Patient> patient) {
 		this.patient = patient;
-	}
+	}*/
 	
 }

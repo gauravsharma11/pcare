@@ -2,7 +2,6 @@ package com.lakeheadu.pcare.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -44,7 +43,7 @@ public class PatientServiceImpl implements PatientService {
 		return patient;
 	}
 
-	@Override
+	@Transactional
 	public boolean savePatients(List<Patient> patient) {
 		
 		if(patientDAO.save(patient) == null)

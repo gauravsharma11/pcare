@@ -13,43 +13,23 @@ Author: Sarwagya Khosla
 <html>
 <head>
 <title>Patient Care</title>
-<link href="<c:url value="/resources/css/bootstrap-3.1.1.min.css"/>"
-	rel='stylesheet' type='text/css' />
-<link href="<c:url value="/resources/css/style.css"/>" rel='stylesheet'
-	type='text/css' media='all' />
+	<link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/custom.css"/>" rel='stylesheet' type='text/css' />
+	<link href="<c:url value="/resources/css/bootstrap-3.1.1.min.css"/>" rel='stylesheet' type='text/css' />
+	<link href="<c:url value="/resources/css/style.css"/>" rel='stylesheet'type='text/css' media='all' />
 
-<!-- for-mobile-apps -->
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //for-mobile-apps -->
+	<!--fonts-->
+	<link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+	<!--//fonts-->
 
-<!--fonts-->
-<link href='//fonts.googleapis.com/css?family=Poiret+One'
-	rel='stylesheet' type='text/css'>
-<link
-	href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic'
-	rel='stylesheet' type='text/css'>
-<!--//fonts-->
-
-<!-- js -->
-<script type="text/javascript"
-	src="/pcare/src/main/webapp/resources/js/jquery-3.1.1.min.js"></script>
-<!-- js -->
-
-<script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-<script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
-<script type="text/javascript"
-	src="<c:url value="/resources/js/modernizr.custom.79639.js"/>"></script>
-
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/font-awesome.min.css"/>"
-	rel='stylesheet' type='text/css' />
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/custom.css"/>" rel='stylesheet'
-	type='text/css' />
-
+	<script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
+	
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.79639.js"/>"></script>
+	
 </head>
 <body>
 	<!-- header -->
@@ -64,10 +44,8 @@ Author: Sarwagya Khosla
 			</div>
 			<div class="contact-info">
 				<ul>
-					<li><span class="glyphicon glyphicon-earphone"
-						aria-hidden="true"></span>+0123 456 789</li>
-					<li><span class="glyphicon glyphicon-envelope"
-						aria-hidden="true"></span><a href="mailto:info@example.com">contactus@pcare.com</a></li>
+					<li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>+0123 456 789</li>
+					<li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span><a href="mailto:info@example.com">contactus@pcare.com</a></li>
 				</ul>
 			</div>
 			<!-- Large modal -->

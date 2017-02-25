@@ -39,6 +39,9 @@ public class Patient {
 
 	@Column
 	private String emailId;
+	
+	@Column
+	private String password;
 
 	@Column
 	private String province;
@@ -57,13 +60,14 @@ public class Patient {
 		
 	}
 	
-	public Patient(String name, int age, LocalDate localDate, boolean gender, String address, String city,
+	public Patient(String name, int age, LocalDate localDate, boolean gender, String password, String address, String city,
 			String emailId, String province, int visits, String contactNumber) {
 		super();
 		this.name = name;
 		this.age = age;
 		this.dateOfBirth = localDate;
 		this.gender = gender;
+		this.password = password;
 		this.address = address;
 		this.city = city;
 		this.emailId = emailId;
@@ -110,6 +114,14 @@ public class Patient {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getCity() {

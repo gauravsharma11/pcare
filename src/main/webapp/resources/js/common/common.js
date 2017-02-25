@@ -5,27 +5,31 @@
 
 $(document).ready(function(){
 	
+//	$('#submit').click(function(){
+//		
+//		var emailId = $('#emailId').val();
+//		var password = $('#password').val();
+//		var data = { "emailId" : emailId, "password" :password };
+//		
+//		$.ajax({
+//			type : "POST",
+//			url : "authenticateUser",
+//			dataType : "json",
+//		    contentType: "application/json; charset=utf-8",
+//		    data : JSON.stringify(data),
+//			success : function(response) {
+//				debugger;
+//				$('#info').html(response);
+//				$('#name').val('');
+//				$('#education').val('');
+//			},
+//		});
+//	})
+	
 	
 });
 
 function doAjaxPost() {
 	// get the form values
-	var name = $('#name').val();
-	var education = $('#education').val();
-	var data = { "name" : name, "emailId" :education };
-	$.ajax({
-		type : "POST",
-		url : "patients",
-		dataType : "json",
-	    contentType: "application/json; charset=utf-8",
-	    data : JSON.stringify(data),
-		success : function(response) {
-			$('#info').html(response);
-			$('#name').val('');
-			$('#education').val('');
-		},
-		error : function(e) {
-			alert('Error: ' + e);
-		}
-	});
+	
 }
