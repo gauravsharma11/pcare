@@ -1,12 +1,10 @@
 package com.lakeheadu.pcare.models;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.joda.time.LocalDate;
@@ -50,16 +48,21 @@ public class Doctor {
 	@Column
 	private String password;
 	
+	@Column
+	private String status;
+	
 //	@OneToMany
 //	private List<Patient> patient;
 	
+
+
 	public Doctor()
 	{
 		
 	}
 	
 	public Doctor(String name, String speciality, LocalDate localDate, boolean gender, String password, String address, String city,
-			String province, String contactNumber, String emailId) {
+			String province, String contactNumber, String emailId, String status) {
 		super();
 		this.name = name;
 		this.speciality = speciality;
@@ -71,6 +74,7 @@ public class Doctor {
 		this.province = province;
 		this.contactNumber = contactNumber;
 		this.emailId = emailId;
+		this.status = status;
 //		this.patient = patient;
 	}
 
@@ -156,6 +160,14 @@ public class Doctor {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 /*	public List<Patient> getPatient() {

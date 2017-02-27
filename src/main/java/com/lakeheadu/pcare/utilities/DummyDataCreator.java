@@ -90,16 +90,16 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 	
 	public List<Doctor> getAllDummyDoctorsData()
 	{
-		Doctor doctor1 = new Doctor("Richard", "Neurosurgeon", new LocalDate (1991, 12, 11), true, "Admin123" ,"John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com");
-		Doctor doctor2 = new Doctor("Michael", "Addiction psychiatrist", new LocalDate (1954, 01, 26), true,"Admin123" , "Applewood", "Hamilton", "Ontario", "8073569452", "drmike1954@gmail.com");
-		Doctor doctor3 = new Doctor("Leon", "Adolescent medicine specialist", new LocalDate (1970, 12, 11), true,"Admin123" , "Red river", "Kingston", "Ontario", "8074269230", "Leon48@gmail.com");
-		Doctor doctor4 = new Doctor("Melissa", "Allergist", new LocalDate (1962, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "Ontario", "8022569230", "Melken@yahoo.com");
-		Doctor doctor5 = new Doctor("Tom", "Anesthesiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "Ontario", "8074039230", "tommy5@gmail.com");
-		Doctor doctor6 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com");
-		Doctor doctor7 = new Doctor("Richard", "Cardiovascular surgeon", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com");
-		Doctor doctor8 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com");
-		Doctor doctor9 = new Doctor("Richard", "Radiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com");
-		Doctor doctor10 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com");
+		Doctor doctor1 = new Doctor("Richard", "Neurosurgeon", new LocalDate (1991, 12, 11), true, "Admin123" ,"John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
+		Doctor doctor2 = new Doctor("Michael", "Addiction psychiatrist", new LocalDate (1954, 01, 26), true,"Admin123" , "Applewood", "Hamilton", "Ontario", "8073569452", "drmike1954@gmail.com","a");
+		Doctor doctor3 = new Doctor("Leon", "Adolescent medicine specialist", new LocalDate (1970, 12, 11), true,"Admin123" , "Red river", "Kingston", "Ontario", "8074269230", "Leon48@gmail.com","a");
+		Doctor doctor4 = new Doctor("Melissa", "Allergist", new LocalDate (1962, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "Ontario", "8022569230", "Melken@yahoo.com","d");
+		Doctor doctor5 = new Doctor("Tom", "Anesthesiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "Ontario", "8074039230", "tommy5@gmail.com","d");
+		Doctor doctor6 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","d");
+		Doctor doctor7 = new Doctor("Richard", "Cardiovascular surgeon", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
+		Doctor doctor8 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","d");
+		Doctor doctor9 = new Doctor("Richard", "Radiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
+		Doctor doctor10 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","d");
 		
 		doctors.add(doctor1);
 		doctors.add(doctor2);

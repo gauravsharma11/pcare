@@ -18,6 +18,15 @@ public class User
 	
 	@Column
 	private String userType;
+	
+	@Column
+	private String name;
+	
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getEmailId() {
 		return emailId;
@@ -43,7 +52,9 @@ public class User
 		this.userType = userType;
 	}
 	
-	
-	
+
+	public String getName() {
+		return name;
+	}
 
 }
