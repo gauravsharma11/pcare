@@ -74,12 +74,11 @@
 <link rel="stylesheet"
 	href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-
+	<script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
+	<!-- Common Script for sendind data to controller -->
+	<script type="text/javascript" src="<c:url value="/resources/js/common/common.js"/>"></script>
 
 </head>
-
-
-
 
 
 
@@ -240,13 +239,63 @@
 										
 										<td><a href="">${patient.dateOfBirth}.pdf</a></td>
 										
-										<td><a href="" title="Edit patient's details"
-												class="fa fa-edit"></a><a href="" title="Add reports"
-												style="margin-left: 10px;" class="fa fa-plus"></a><a href=""
-												title="delete" style="margin-left: 10px;"
-												class="fa fa-trash-o"></a></td>
-
-									
+										<td><a href="" title="Edit patient's details"class="fa fa-edit"></a>
+											<a href="" title="Add reports" data-toggle="modal" data-target="#myModal" style="margin-left: 10px;" class="fa fa-plus"></a>
+											
+												  <!-- Modal -->
+												  <div class="modal fade" id="myModal" role="dialog">
+												    <div class="modal-dialog" style="width: 800px">
+												    
+												      <!-- Modal content-->
+												      <div class="modal-content">
+												        <div class="modal-header">
+												          <button type="button" class="close" data-dismiss="modal">&times;</button>
+												          <h4 class="modal-title">Modal Header</h4>
+												        </div>
+												        <div class="modal-body">
+												        
+												        <div style="overflow: auto">
+												          <table class="table">
+												          <thead>
+												            <tr>
+												              <th>Drug Name</th>
+												              <th>Form</th>
+												              <th>Strength</th>
+												              <th>Directions</th>
+												            </tr>
+												           </thead>
+												      <tbody>
+												        <tr>
+												          <td><span><input type="text" id="drugName" /></span></td>
+												          <td>
+												            <select id="form">
+												                <option value="volvo">Liquid</option>
+												                <option value="saab">Tablet</option>
+												                <option value="mercedes">Capsule</option>
+												                <option value="audi">Drops</option>
+												                <option value="audi">Inhaler</option>
+												                <option value="audi">Injection</option>
+												            </select>
+												          </td>
+												          <td><span><input type="text" value="250mg" id="strength"/></span></td>
+												          <td><span><input type="text" id="directions"></span></td>
+												          <td><input type="text" id="prescribedBy" style="display: none" value="${listOfData.user.name}"/></td>
+												        </tr>
+												        </tbody>
+												</table>
+												</div>
+												        </div>
+												        <div class="modal-footer">
+												          <button type="button" id="submitd" class="btn btn-default" data-dismiss="modal">Submit</button>
+												        </div>
+												      </div>
+												      
+												    </div>
+												  </div>
+												  
+												</div>
+											
+											<a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a></td>
 									</tr>
 								</c:forEach>
 									</tbody>

@@ -1,20 +1,16 @@
 package com.lakeheadu.pcare.models;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.joda.time.LocalDate;
 
 @Entity
-@Table
+@Table()
 public class Doctor {
 	
 	@Id
@@ -55,11 +51,6 @@ public class Doctor {
 	@Column
 	private String status;
 	
-//	@OneToMany(cascade = CascadeType.ALL, mappedBy="id")
-//	private List<Patient> patients;
-	
-
-
 	public Doctor()
 	{
 		
@@ -174,14 +165,4 @@ public class Doctor {
 		this.status = status;
 	}
 
-
-
-//	public List<Patient> getPatient() {
-//		return patients;
-//	}
-//
-//	public void setPatient(List<Patient> patient) {
-//		this.patients = patient;
-//	}
-	
 }

@@ -2,9 +2,12 @@ package com.lakeheadu.pcare.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -55,9 +58,6 @@ public class Patient {
 	@OneToOne
 	private Medical medical;
 	
-	@OneToOne
-	private Doctor doctor;
-	
 	@Column
 	private String diagnosis;
 	
@@ -69,13 +69,6 @@ public class Patient {
 		this.diagnosis = diagnosis;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
-	}
 
 	public Patient()
 	{

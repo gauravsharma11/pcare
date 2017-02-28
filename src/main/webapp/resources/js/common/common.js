@@ -5,26 +5,37 @@
 
 $(document).ready(function(){
 	
-//	$('#submit').click(function(){
-//		
-//		var emailId = $('#emailId').val();
-//		var password = $('#password').val();
-//		var data = { "emailId" : emailId, "password" :password };
-//		
-//		$.ajax({
-//			type : "POST",
-//			url : "authenticateUser",
-//			dataType : "json",
-//		    contentType: "application/json; charset=utf-8",
-//		    data : JSON.stringify(data),
-//			success : function(response) {
-//				debugger;
-//				$('#info').html(response);
-//				$('#name').val('');
-//				$('#education').val('');
-//			},
-//		});
-//	})
+	$('#submitd').click(function(){
+		debugger;
+		var drugName = $('#drugName').val();
+		var form = $('#form').find(":selected").text();
+		var strength = $('#strength').val();
+		var directions = $('#directions').val();
+		var prescribedBy = $('#prescribedBy').val();
+		
+		var d = new Date();
+
+		var month = d.getMonth()+1;
+		var day = d.getDate();
+
+		var output = d.getFullYear() + '/' +
+		    (month<10 ? '0' : '') + month + '/' +
+		    (day<10 ? '0' : '') + day;
+		
+		var prescribedOn = output;
+		
+		var data = { "drugName" : drugName, "form" :form, "strength" : strength, "directions" :directions, "prescribedBy" : prescribedBy, "prescribedOn" :prescribedOn };
+		
+		$.ajax({
+			type : "POST",
+			url : "prescription",
+			dataType : "json",
+		    contentType: "application/json; charset=utf-8",
+		    data : JSON.stringify(data),
+			success : function(response) {
+			},
+		});
+	})
 	
 	
 });
