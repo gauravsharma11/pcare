@@ -36,12 +36,12 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 	
 	@Transactional
-	public Doctor getDoctor(int id) {
-		
-		Doctor doctor = doctorDAO.findById(id);
+	public Doctor getDoctor(String email) {
+		// TODO Auto-generated method stub
+		Doctor doctor = doctorDAO.findByEmailId(email);
 		return doctor;
 	}
-
+	
 	@Transactional
 	public boolean saveDoctors(List<Doctor> doctor) {
 		
@@ -50,5 +50,7 @@ public class DoctorServiceImpl implements DoctorService {
 		else 
 			return true;
 	}
+
+	
 
 }

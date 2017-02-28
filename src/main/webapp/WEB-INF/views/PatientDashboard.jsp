@@ -74,7 +74,9 @@
 <link rel="stylesheet"
 	href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -116,7 +118,7 @@
 
 				<!-- Control Sidebar Toggle Button -->
 
-				<li><a href="#"> <i class="fa fa-sign-out"></i> <span
+				<li><a href="/"> <i class="fa fa-sign-out"></i> <span
 						class="hidden-xs">Logout</span>
 
 				</a></li>
@@ -277,10 +279,112 @@
 
 						</div>
 
-						<a href="#" class="small-box-footer">Go <i
+						<a href="" class="small-box-footer">Go <i
 							class="fa fa-arrow-circle-right"></i></a>
 
 					</div>
+					
+					<button type="button"  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+					
+					<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="width: 800px">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+        
+        <div style="overflow: auto">
+          <table class="table">
+          <thead>
+            <tr>
+              <th>Prescription No.</th>
+              <th>Drug Name</th>
+              <th>Form</th>
+              <th>Strength</th>
+              <th>Directions</th>
+            </tr>
+           </thead>
+      <tbody>
+        <tr>
+          <td><span>1</td>
+          <td><span><input type="text" /></span></td>
+          <td>
+            <select>
+                <option value="volvo">Liquid</option>
+                <option value="saab">Tablet</option>
+                <option value="mercedes">Capsule</option>
+                <option value="audi">Drops</option>
+                <option value="audi">Inhaler</option>
+                <option value="audi">Injection</option>
+            </select>
+          </td>
+          <td><span><input type="text" value="250mg"/></span></td>
+          <td><span><input type="text"></span></td>
+        </tr>
+        <tr>
+          <td><span>2</td>
+          <td><span><input type="text" /></span></td>
+          <td>
+            <select>
+                <option value="volvo">Liquid</option>
+                <option value="saab">Tablet</option>
+                <option value="mercedes">Capsule</option>
+                <option value="audi">Drops</option>
+                <option value="audi">Inhaler</option>
+                <option value="audi">Injection</option>
+            </select>
+          </td>
+          <td><span><input type="text" value="250mg"/></span></td>
+          <td><span><input type="text"></span></td>
+        </tr>
+        <tr>
+          <td><span>3</td>
+          <td><span><input type="text" /></span></td>
+          <td>
+            <select>
+                <option value="volvo">Liquid</option>
+                <option value="saab">Tablet</option>
+                <option value="mercedes">Capsule</option>
+                <option value="audi">Drops</option>
+                <option value="audi">Inhaler</option>
+                <option value="audi">Injection</option>
+            </select>
+          </td>
+          <td><span><input type="text" value="250mg"/></span></td>
+          <td><span><input type="text"></span></td>
+        </tr>
+        <tr>
+          <td><span>4</td>
+          <td><span><input type="text" /></span></td>
+          <td>
+            <select>
+                <option value="volvo">Liquid</option>
+                <option value="saab">Tablet</option>
+                <option value="mercedes">Capsule</option>
+                <option value="audi">Drops</option>
+                <option value="audi">Inhaler</option>
+                <option value="audi">Injection</option>
+            </select>
+          </td>
+          <td><span><input type="text" value="250mg"/></span></td>
+          <td><span><input type="text"></span></td>
+        </tr>
+        </tbody>
+</table>
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+					
 
 				</div>
 
@@ -402,7 +506,7 @@
 										<td>${doctor.speciality}</td>
 
 										<td><a href="" title="View doctor's detail"
-												class="fa fa-edit"></a>
+												class="fa fa-eye"></a>
 											
 											<a href=""title="delete" style="margin-left: 10px;"
 												class="fa fa-trash-o"></a>

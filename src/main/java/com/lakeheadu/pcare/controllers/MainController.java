@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lakeheadu.pcare.models.Doctor;
+import com.lakeheadu.pcare.models.DoctorDashBoard;
 import com.lakeheadu.pcare.models.PatientDashboard;
+import com.lakeheadu.pcare.models.PatientsforDoctor;
 import com.lakeheadu.pcare.models.User;
 import com.lakeheadu.pcare.services.DoctorService;
-import com.lakeheadu.pcare.services.DoctorServiceImpl;
+import com.lakeheadu.pcare.services.PatientService;
+import com.lakeheadu.pcare.services.PatientsForDoctorService;
 import com.lakeheadu.pcare.services.UserService;
 import com.lakeheadu.pcare.utilities.CommonUtil;
 
@@ -27,7 +30,16 @@ public class MainController {
 	DoctorService doctorService;
 
 	@Autowired
+	PatientService patientService;
+	
+	@Autowired
+	PatientsForDoctorService pForD;
+
+	@Autowired
 	PatientDashboard patientDashboard;
+	
+	@Autowired
+	DoctorDashBoard doctorDashboard;
 
 	@RequestMapping("/")
 	public String showHomePage() {
@@ -55,14 +67,25 @@ public class MainController {
 			model.addObject("listOfData", patientDashboard);
 
 			return model;
-			// return "temp";
+			
+		} else if (validUser.getUserType().equals(CommonUtil.DOCTOR)) {
+			model = new ModelAndView("DoctorDashboard");
+
+			List<PatientsforDoctor> listOfPatients = new ArrayList<PatientsforDoctor>();
+			//Doctor doctorInstance = doctorService.getDoctor(validUser.getEmailId());
+			
+			
+
+			listOfPatients = pForD.getAllPatients();
+
+			doctorDashboard.setListOfPatients(listOfPatients);
+			doctorDashboard.setUser(validUser);
+
+			model.addObject("listOfData", doctorDashboard);
+
+			return model;
 		}
-		// else if(validUser.getUserType().equals(CommonUtil.DOCTOR))
-		// return "";
-		// else if(validUser.getUserType().equals(CommonUtil.STAFF))
-		// return "";
-		//
-		// return "";
+		
 		return model;
 	}
 }

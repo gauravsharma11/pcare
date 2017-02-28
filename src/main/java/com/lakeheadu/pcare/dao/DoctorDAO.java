@@ -7,6 +7,6 @@ import com.lakeheadu.pcare.models.Patient;
 
 public interface DoctorDAO extends CrudRepository<Doctor, Long> {
 	
-	public Doctor findById(int id);
+	public Doctor findByEmailId(String email);
 
 }

@@ -12,20 +12,24 @@ import org.springframework.stereotype.Component;
 
 import com.lakeheadu.pcare.models.Doctor;
 import com.lakeheadu.pcare.models.Patient;
+import com.lakeheadu.pcare.models.PatientsforDoctor;
 import com.lakeheadu.pcare.models.Staff;
 import com.lakeheadu.pcare.services.DoctorService;
 import com.lakeheadu.pcare.services.PatientService;
+import com.lakeheadu.pcare.services.PatientsForDoctorService;
 
 @Component
 public class DummyDataCreator implements ApplicationListener<ContextRefreshedEvent> 
 {
 	private PatientService patientService;
+	private PatientsForDoctorService patientsForDoctorService;
 	
 	private DummyDataCreator dummyDataCeator;
 	
 	private DoctorService doctorService;
 
 	private List<Patient> patients = new ArrayList<Patient>();
+	private List<PatientsforDoctor> pat = new ArrayList<PatientsforDoctor>();
 	private List<Doctor> doctors = new ArrayList<Doctor>();
 	private List<Staff> staffMembers = new ArrayList<Staff>();
 	
@@ -36,6 +40,11 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 	@Autowired
 	public void setPatientService(PatientService patientService) {
 		this.patientService = patientService;
+	}
+	
+	@Autowired
+	public void setPatientsForDoctorService(PatientsForDoctorService patientsForDoctorService) {
+		this.patientsForDoctorService = patientsForDoctorService;
 	}
 	
 	@Autowired
@@ -59,20 +68,43 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 		doctors = dummyDataCeator.getAllDummyDoctorsData();
 		doctorService.saveDoctors(doctors);
 		
+		List<PatientsforDoctor> pat = new ArrayList<PatientsforDoctor>();
+
+		
+		pat = dummyDataCeator.getAllDummyPatientInDoctor();
+		patientsForDoctorService.savePatientofDoctors(pat);
+		
 	}
 	
+	private List<PatientsforDoctor> getAllDummyPatientInDoctor() {
+		// TODO Auto-generated method stub
+		
+		PatientsforDoctor patient5 = new PatientsforDoctor("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667","Malaria");
+		PatientsforDoctor patient6 = new PatientsforDoctor("Bob", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607","Dengu");
+		PatientsforDoctor patient7 = new PatientsforDoctor("Jacky", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603","Tuberculosis");
+		PatientsforDoctor patient8 = new PatientsforDoctor("Bruce", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837","Malaria");
+		PatientsforDoctor patient9 = new PatientsforDoctor("John", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810","Dengu");
+
+		pat.add(patient5);
+		pat.add(patient6);
+		pat.add(patient7);
+		pat.add(patient8);
+		pat.add(patient9);
+		return pat;
+	}
+
 	public List<Patient> getAllDummyPatientsData()
 	{
-		Patient patient1 = new Patient("Gaurav Sharma", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "gaurav.sharma19@yahoo.com", "Ontario", 5, "8077082057");
-		Patient patient2 = new Patient("Siddhant", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Phillip Street", "Toronto", "sid19@yahoo.com", "Ontario", 5, "8072552672");
-		Patient patient3 = new Patient("S grewal", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Pasteur Street", "Waterloo", "grewal@yahoo.com", "Ontario", 5, "8073562057");
-		Patient patient4 = new Patient("Harish", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Oliver Road", "Hamilton", "harish@yahoo.com", "Ontario", 5, "8074567980");
-		Patient patient5 = new Patient("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667");
-		Patient patient6 = new Patient("Bob", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607");
-		Patient patient7 = new Patient("Jacky", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603");
-		Patient patient8 = new Patient("Bruce", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837");
-		Patient patient9 = new Patient("John", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810");
-		Patient patient10 = new Patient("Ujjval", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "ujjval@yahoo.com", "Ontario", 5, "8072226780");
+		Patient patient1 = new Patient("Gaurav Sharma", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "gaurav.sharma19@yahoo.com", "Ontario", 5, "8077082057","Dengu");
+		Patient patient2 = new Patient("Siddhant", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Phillip Street", "Toronto", "sid19@yahoo.com", "Ontario", 5, "8072552672","Tuberculosis");
+		Patient patient3 = new Patient("S grewal", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Pasteur Street", "Waterloo", "grewal@yahoo.com", "Ontario", 5, "8073562057","Malaria");
+		Patient patient4 = new Patient("Harish", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Oliver Road", "Hamilton", "harish@yahoo.com", "Ontario", 5, "8074567980","Dengu");
+		Patient patient5 = new Patient("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667","Tuberculosis");
+		Patient patient6 = new Patient("Bob", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607","Dengu");
+		Patient patient7 = new Patient("Jacky", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603","Malaria");
+		Patient patient8 = new Patient("Bruce", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837","Malaria");
+		Patient patient9 = new Patient("John", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810","Tuberculosis");
+		Patient patient10 = new Patient("Ujjval", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "ujjval@yahoo.com", "Ontario", 5, "8072226780","Dengu");
 		
 		patients.add(patient1);
 		patients.add(patient2);

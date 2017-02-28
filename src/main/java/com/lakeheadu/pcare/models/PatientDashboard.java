@@ -7,8 +7,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PatientDashboard {
-	
+
 	List<Doctor> listOfDoctors = new ArrayList<Doctor>();
+
+	
+
+	public List<Doctor> getListOfDoctors() {
+		return listOfDoctors;
+	}
+
+	public void setListOfDoctors(List<Doctor> listOfDoctors) {
+		this.listOfDoctors = listOfDoctors;
+	}
+
 	User user;
 
 	public User getUser() {
@@ -17,14 +28,6 @@ public class PatientDashboard {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<Doctor> getListOfDoctors() {
-		return listOfDoctors;
-	}
-
-	public void setListOfDoctors(List<Doctor> listOfDoctors) {
-		this.listOfDoctors = listOfDoctors;
 	}
 
 }

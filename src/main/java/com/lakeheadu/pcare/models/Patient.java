@@ -55,13 +55,35 @@ public class Patient {
 	@OneToOne
 	private Medical medical;
 	
+	@OneToOne
+	private Doctor doctor;
+	
+	@Column
+	private String diagnosis;
+	
+	public String getDiagnosis() {
+		return diagnosis;
+	}
+
+	public void setDiagnosis(String diagnosis) {
+		this.diagnosis = diagnosis;
+	}
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
 	public Patient()
 	{
 		
 	}
 	
 	public Patient(String name, int age, LocalDate localDate, boolean gender, String password, String address, String city,
-			String emailId, String province, int visits, String contactNumber) {
+			String emailId, String province, int visits, String contactNumber, String diagnosis) {
 		super();
 		this.name = name;
 		this.age = age;
@@ -74,6 +96,7 @@ public class Patient {
 		this.province = province;
 		this.visits = visits;
 		this.contactNumber = contactNumber;
+		this.diagnosis = diagnosis;
 	}
 
 	public String getName() {

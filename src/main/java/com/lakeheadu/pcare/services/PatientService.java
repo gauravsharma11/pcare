@@ -13,4 +13,5 @@ public interface PatientService {
 	public Patient getPatient(int id);
 	
 	public boolean savePatients(List<Patient> patient);
+
 }
