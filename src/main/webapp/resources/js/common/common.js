@@ -6,7 +6,6 @@
 $(document).ready(function(){
 	
 	$('#submitd').click(function(){
-		debugger;
 		var drugName = $('#drugName').val();
 		var form = $('#form').find(":selected").text();
 		var strength = $('#strength').val();

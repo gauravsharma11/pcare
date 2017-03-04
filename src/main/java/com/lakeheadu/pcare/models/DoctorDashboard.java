@@ -2,29 +2,26 @@ package com.lakeheadu.pcare.models;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.springframework.stereotype.Component;
 
 @Component
-public class PatientDashboard {
-
-	private Collection<Doctor> doctors = new ArrayList<Doctor>();
+public class DoctorDashboard {
+	
+	private Collection<Patient> patients = new ArrayList<Patient>();
 	private User user;
 	
-	public Collection<Doctor> getDoctors() {
-		return doctors;
+	public Collection<Patient> getPatients() {
+		return patients;
 	}
-
-	public void setDoctors(Collection<Doctor> doctors) {
-		this.doctors = doctors;
+	public void setPatients(Collection<Patient> patients) {
+		this.patients = patients;
 	}
-
+	
 	public User getUser() {
 		return user;
 	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
 }

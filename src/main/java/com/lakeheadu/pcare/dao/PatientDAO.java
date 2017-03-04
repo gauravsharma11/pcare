@@ -1,13 +1,18 @@
 package com.lakeheadu.pcare.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 import org.springframework.stereotype.Repository;
-
 import com.lakeheadu.pcare.models.Patient;
 
 @Repository
-public interface PatientDAO extends CrudRepository<Patient, Long> {
+public interface PatientDAO
+{
+	public boolean savePatient(Patient patient);
 	
-	public Patient findById(int id);
+	public List<Patient> getAllPatients();
 	
+	public Patient getPatient(String emailId);
+	
+	public boolean savePatients(List<Patient> patient);
+
 }

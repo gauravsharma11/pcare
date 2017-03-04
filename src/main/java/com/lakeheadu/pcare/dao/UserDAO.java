@@ -1,10 +1,14 @@
 package com.lakeheadu.pcare.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.Collection;
 
 import com.lakeheadu.pcare.models.User;
 
-public interface UserDAO extends CrudRepository<User, String>{
-
-			
+public interface UserDAO 
+{
+	public User getUser(String emailId);
+	
+	public boolean saveUser(User user);
+	
+	public boolean saveUsers(Collection<User> users);
 }

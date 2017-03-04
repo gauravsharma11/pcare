@@ -24,14 +24,14 @@ public class PatientController {
 	}
 
 	@RequestMapping("/patients/{id}")
-	public Patient getPatient(@PathVariable int id) {
-		
-		return patientService.getPatient(id);
+	public Patient getPatient(@PathVariable String emailId) 
+	{
+		return patientService.getPatient(emailId);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value="/patients")
-	public boolean addPatient(@RequestBody Patient patient, BindingResult result) {
-		
+	public boolean addPatient(@RequestBody Patient patient, BindingResult result)
+	{
 		boolean isSuccess;
 
 		if (result.hasErrors())

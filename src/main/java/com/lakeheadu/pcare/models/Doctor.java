@@ -1,20 +1,26 @@
 package com.lakeheadu.pcare.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
 import org.joda.time.LocalDate;
 
 @Entity
-@Table()
+@Table(name="DOCTOR")
 public class Doctor {
 	
 	@Id
-	@Column
+	@Column(name="DOCTOR_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
@@ -51,6 +57,10 @@ public class Doctor {
 	@Column
 	private String status;
 	
+	@ManyToMany(cascade = {CascadeType.MERGE})
+	@JoinTable(name="DOCTOR_PATIENT", joinColumns={@JoinColumn(name="DOCTOR_ID")}, inverseJoinColumns={@JoinColumn(name="PATIENT_ID")})
+	private Collection<Patient> patientsList = new ArrayList<Patient>();
+	
 	public Doctor()
 	{
 		
@@ -79,6 +89,14 @@ public class Doctor {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Collection<Patient> getPatientsList() {
+		return patientsList;
+	}
+
+	public void setPatientsList(Collection<Patient> patientsList) {
+		this.patientsList = patientsList;
 	}
 
 	public String getSpeciality() {
@@ -164,5 +182,31 @@ public class Doctor {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+		        + ((emailId == null) ? 0 : emailId.hashCode());
+		return result;
+	}
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Doctor other = (Doctor) obj;
+        if (emailId == null) {
+            if (other.emailId != null)
+                return false;
+        } else if (!emailId.equals(other.emailId))
+            return false;
+        return true;
+    }
 
 }

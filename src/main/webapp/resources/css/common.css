@@ -1,0 +1,17 @@
+@CHARSET "ISO-8859-1";
+
+/* Classes for padding */
+
+html { 
+	background-color: #ecf0f5;
+	}
+
+.padding8px {
+	padding: 8px;	
+} 
+
+.footerBottom {
+    position: absolute !important;
+    bottom: 0px !important;
+    width: 100% !important;	
+}

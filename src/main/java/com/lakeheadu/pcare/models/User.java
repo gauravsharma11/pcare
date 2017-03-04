@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="USER")
 public class User 
 {
 	@Id
@@ -22,8 +22,6 @@ public class User
 	@Column
 	private String name;
 	
-
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -52,9 +50,20 @@ public class User
 		this.userType = userType;
 	}
 	
-
 	public String getName() {
 		return name;
+	}
+	
+	public User(){
+		
+	}
+
+	public User(String emailId, String password, String userType, String name) {
+		super();
+		this.emailId = emailId;
+		this.password = password;
+		this.userType = userType;
+		this.name = name;
 	}
 
 }

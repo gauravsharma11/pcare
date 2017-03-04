@@ -12,26 +12,28 @@ import org.springframework.stereotype.Component;
 
 import com.lakeheadu.pcare.models.Doctor;
 import com.lakeheadu.pcare.models.Patient;
-import com.lakeheadu.pcare.models.PatientsforDoctor;
 import com.lakeheadu.pcare.models.Staff;
+import com.lakeheadu.pcare.models.User;
 import com.lakeheadu.pcare.services.DoctorService;
 import com.lakeheadu.pcare.services.PatientService;
-import com.lakeheadu.pcare.services.PatientsForDoctorService;
+import com.lakeheadu.pcare.services.UserService;
 
 @Component
 public class DummyDataCreator implements ApplicationListener<ContextRefreshedEvent> 
 {
 	private PatientService patientService;
-	private PatientsForDoctorService patientsForDoctorService;
 	
 	private DummyDataCreator dummyDataCeator;
 	
 	private DoctorService doctorService;
+	
+	private UserService userService;
 
 	private List<Patient> patients = new ArrayList<Patient>();
-	private List<PatientsforDoctor> pat = new ArrayList<PatientsforDoctor>();
 	private List<Doctor> doctors = new ArrayList<Doctor>();
 	private List<Staff> staffMembers = new ArrayList<Staff>();
+	
+	private List<User> users = new ArrayList<User>();
 	
 	public PatientService getPatientService() {
 		return patientService;
@@ -40,11 +42,6 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 	@Autowired
 	public void setPatientService(PatientService patientService) {
 		this.patientService = patientService;
-	}
-	
-	@Autowired
-	public void setPatientsForDoctorService(PatientsForDoctorService patientsForDoctorService) {
-		this.patientsForDoctorService = patientsForDoctorService;
 	}
 	
 	@Autowired
@@ -57,43 +54,21 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 		this.doctorService = doctorService;
 	}
 	
+	@Autowired
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		
 		System.out.println("Starting data loading");
-		patients = dummyDataCeator.getAllDummyPatientsData();
-		patientService.savePatients(patients);
 		
-		doctors = dummyDataCeator.getAllDummyDoctorsData();
-		doctorService.saveDoctors(doctors);
-		
-		List<PatientsforDoctor> pat = new ArrayList<PatientsforDoctor>();
-
-		
-		pat = dummyDataCeator.getAllDummyPatientInDoctor();
-		patientsForDoctorService.savePatientofDoctors(pat);
+		dummyDataCeator.saveAllDummyData();
 		
 	}
 	
-	private List<PatientsforDoctor> getAllDummyPatientInDoctor() {
-		// TODO Auto-generated method stub
-		
-		PatientsforDoctor patient5 = new PatientsforDoctor("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667","Malaria");
-		PatientsforDoctor patient6 = new PatientsforDoctor("Bob", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607","Dengu");
-		PatientsforDoctor patient7 = new PatientsforDoctor("Jacky", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603","Tuberculosis");
-		PatientsforDoctor patient8 = new PatientsforDoctor("Bruce", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837","Malaria");
-		PatientsforDoctor patient9 = new PatientsforDoctor("John", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810","Dengu");
-
-		pat.add(patient5);
-		pat.add(patient6);
-		pat.add(patient7);
-		pat.add(patient8);
-		pat.add(patient9);
-		return pat;
-	}
-
-	public List<Patient> getAllDummyPatientsData()
+	public void saveAllDummyData()
 	{
 		Patient patient1 = new Patient("Gaurav Sharma", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "gaurav.sharma19@yahoo.com", "Ontario", 5, "8077082057","Dengu");
 		Patient patient2 = new Patient("Siddhant", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Phillip Street", "Toronto", "sid19@yahoo.com", "Ontario", 5, "8072552672","Tuberculosis");
@@ -106,32 +81,64 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 		Patient patient9 = new Patient("John", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810","Tuberculosis");
 		Patient patient10 = new Patient("Ujjval", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "ujjval@yahoo.com", "Ontario", 5, "8072226780","Dengu");
 		
-		patients.add(patient1);
-		patients.add(patient2);
-		patients.add(patient3);
-		patients.add(patient4);
-		patients.add(patient5);
-		patients.add(patient6);
-		patients.add(patient7);
-		patients.add(patient8);
-		patients.add(patient9);
-		patients.add(patient10);
 		
-		return patients;
-	}
-	
-	public List<Doctor> getAllDummyDoctorsData()
-	{
 		Doctor doctor1 = new Doctor("Richard", "Neurosurgeon", new LocalDate (1991, 12, 11), true, "Admin123" ,"John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
+		
+		doctor1.getPatientsList().add(patient1);
+		doctor1.getPatientsList().add(patient2);
+		
 		Doctor doctor2 = new Doctor("Michael", "Addiction psychiatrist", new LocalDate (1954, 01, 26), true,"Admin123" , "Applewood", "Hamilton", "Ontario", "8073569452", "drmike1954@gmail.com","a");
+		
+		doctor2.getPatientsList().add(patient7);
+		doctor2.getPatientsList().add(patient3);
+		
 		Doctor doctor3 = new Doctor("Leon", "Adolescent medicine specialist", new LocalDate (1970, 12, 11), true,"Admin123" , "Red river", "Kingston", "Ontario", "8074269230", "Leon48@gmail.com","a");
+		
+		doctor3.getPatientsList().add(patient5);
+		doctor3.getPatientsList().add(patient2);
+		
 		Doctor doctor4 = new Doctor("Melissa", "Allergist", new LocalDate (1962, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "Ontario", "8022569230", "Melken@yahoo.com","d");
+		
+		doctor4.getPatientsList().add(patient9);
+		doctor4.getPatientsList().add(patient7);
+		
 		Doctor doctor5 = new Doctor("Tom", "Anesthesiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "Ontario", "8074039230", "tommy5@gmail.com","d");
-		Doctor doctor6 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","d");
-		Doctor doctor7 = new Doctor("Richard", "Cardiovascular surgeon", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
-		Doctor doctor8 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","d");
-		Doctor doctor9 = new Doctor("Richard", "Radiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
-		Doctor doctor10 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","d");
+		
+		doctor5.getPatientsList().add(patient3);
+		doctor5.getPatientsList().add(patient5);
+		
+		Doctor doctor6 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich454@gmail.com","d");
+		
+		doctor6.getPatientsList().add(patient2);
+		doctor6.getPatientsList().add(patient3);
+		
+		Doctor doctor7 = new Doctor("Richard", "Cardiovascular surgeon", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich455@gmail.com","a");
+		
+		doctor7.getPatientsList().add(patient4);
+		doctor7.getPatientsList().add(patient5);
+		
+		Doctor doctor8 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich456@gmail.com","d");
+		
+		doctor8.getPatientsList().add(patient6);
+		doctor8.getPatientsList().add(patient7);
+		
+		Doctor doctor9 = new Doctor("Richard", "Radiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich457@gmail.com","a");
+		
+		doctor9.getPatientsList().add(patient8);
+		doctor9.getPatientsList().add(patient9);
+		
+		Doctor doctor10 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich458@gmail.com","d");
+		
+		doctor10.getPatientsList().add(patient9);
+		doctor10.getPatientsList().add(patient10);
+		
+		User user1 = new User("gaurav.sharma19@yahoo.com", "Admin123", "patient", "Gaurav");
+		User user2 = new User("rich45@gmail.com", "Admin123", "doctor", "Richard");
+		
+		users.add(user1);
+		users.add(user2);
+		
+		userService.saveUsers(users);
 		
 		doctors.add(doctor1);
 		doctors.add(doctor2);
@@ -144,7 +151,50 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 		doctors.add(doctor9);
 		doctors.add(doctor10);
 		
-		return doctors;
+		
+		patient1.getDoctorsList().add(doctor1);
+		
+		patient2.getDoctorsList().add(doctor1);
+		patient2.getDoctorsList().add(doctor3);
+		patient2.getDoctorsList().add(doctor6);
+		
+		patient3.getDoctorsList().add(doctor2);
+		patient3.getDoctorsList().add(doctor5);
+		patient3.getDoctorsList().add(doctor6);
+		
+		patient4.getDoctorsList().add(doctor7);
+		
+		patient5.getDoctorsList().add(doctor3);
+		patient5.getDoctorsList().add(doctor5);
+		patient5.getDoctorsList().add(doctor7);
+		
+		patient6.getDoctorsList().add(doctor8);
+		
+		patient7.getDoctorsList().add(doctor2);
+		patient7.getDoctorsList().add(doctor4);
+		patient7.getDoctorsList().add(doctor8);
+		
+		patient8.getDoctorsList().add(doctor9);
+		
+		patient9.getDoctorsList().add(doctor4);
+		patient9.getDoctorsList().add(doctor9);
+		patient9.getDoctorsList().add(doctor10);
+		
+		patient10.getDoctorsList().add(doctor10);
+		
+		patients.add(patient1);
+		patients.add(patient2);
+		patients.add(patient3);
+		patients.add(patient4);
+		patients.add(patient5);
+		patients.add(patient6);
+		patients.add(patient7);
+		patients.add(patient8);
+		patients.add(patient9);
+		patients.add(patient10);
+		
+		patientService.savePatients(patients);
+		doctorService.saveDoctors(doctors);
 	}
 	
 	public List<Staff> getAllDummyStaffData()

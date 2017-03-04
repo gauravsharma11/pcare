@@ -1,24 +1,27 @@
 package com.lakeheadu.pcare.models;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.joda.time.LocalDate;
 
 @Entity
-@Table
-public class Patient {
+@Table(name="PATIENT")
+public class Patient
+{
 	
 	@Id
-	@Column
+	@Column(name="PATIENT_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
@@ -61,15 +64,9 @@ public class Patient {
 	@Column
 	private String diagnosis;
 	
-	public String getDiagnosis() {
-		return diagnosis;
-	}
-
-	public void setDiagnosis(String diagnosis) {
-		this.diagnosis = diagnosis;
-	}
-
-
+	@ManyToMany(mappedBy="patientsList", fetch = FetchType.LAZY)
+	private Collection<Doctor> doctorsList = new ArrayList<Doctor>();
+	
 	public Patient()
 	{
 		
@@ -91,6 +88,10 @@ public class Patient {
 		this.contactNumber = contactNumber;
 		this.diagnosis = diagnosis;
 	}
+	
+	public int getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -99,13 +100,21 @@ public class Patient {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getAge() {
-		return age;
+	
+	public String getDiagnosis() {
+		return diagnosis;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setDiagnosis(String diagnosis) {
+		this.diagnosis = diagnosis;
+	}
+	
+	public Collection<Doctor> getDoctorsList() {
+		return doctorsList;
+	}
+
+	public void setDoctorsList(Collection<Doctor> doctorsList) {
+		this.doctorsList = doctorsList;
 	}
 
 	public LocalDate getDateOfBirth() {
@@ -179,5 +188,30 @@ public class Patient {
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+		        + ((emailId == null) ? 0 : emailId.hashCode());
+		return result;
+	}
 
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Patient other = (Patient) obj;
+        if (emailId == null) {
+            if (other.emailId != null)
+                return false;
+        } else if (!emailId.equals(other.emailId))
+            return false;
+        return true;
+    }
 }
