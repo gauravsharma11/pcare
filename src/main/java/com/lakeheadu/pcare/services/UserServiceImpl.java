@@ -25,8 +25,9 @@ public class UserServiceImpl implements UserService
 			return newUser;
 		else if((user.getEmailId().equalsIgnoreCase(newUser.getEmailId()) && user.getPassword().equals(newUser.getPassword())))
 			return newUser;
+		else
+			return null;
 		
-		return newUser;
 	}
 
 	@Transactional
