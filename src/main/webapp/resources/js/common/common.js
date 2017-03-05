@@ -112,18 +112,26 @@ $(document).ready(function(){
 		        data: listOfdata,
 		        
 		        success: function(response){
+		        	if(response){
 		        	$("#alert").html(
 		        			'<div id="alertSuccessfull" class="alert alert-success alert-dismissable">'+
 							'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
 							'<i class="icon fa fa-check"></i>Prescription to '+$("#patientName").val()+' has been added successfully. </div>'
 		        	);
-		        	//alert("true"+response);
+		        	}else {
+		        		$("#alert").html(
+			        			'<div id="alertSuccessfull" class="alert alert-danger alert-dismissable">'+
+								'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+								'<i class="icon fa fa-check"></i>Unable to add '+$("#patientName").val()+' prescription to system. </div>'
+			        	);
+		        	}
 		        },
+		     
 		        error: function(e){
 		        	$("#alert").html(
 		        			'<div id="alertSuccessfull" class="alert alert-danger alert-dismissable">'+
 							'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
-							'<i class="icon fa fa-check"></i>Unable to add '+$("#patientName").val()+' prescription to system. </div>'
+							'<i class="icon fa fa-check"></i>There is some problem. Please contact administrator. </div>'
 		        	);
 		        }
 		        });
