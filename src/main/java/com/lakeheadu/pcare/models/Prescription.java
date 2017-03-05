@@ -1,16 +1,25 @@
 package com.lakeheadu.pcare.models;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class Prescription {
+
+
+	private String prescriptionId;
+	private String visitDate;
+	private String prescribedByID;
+	private String startDate;
+	private String endDate;
+	private ArrayList<String> listOfDrugs = new ArrayList<String>();
 	
 	
 	@Id
@@ -68,13 +77,6 @@ public class Prescription {
 		this.directions = directions;
 	}
 
-	public String getPrescribedBy() {
-		return prescribedBy;
-	}
-
-	public void setPrescribedBy(String prescribedBy) {
-		this.prescribedBy = prescribedBy;
-	}
 
 	public String getPrescribedOn() {
 		return prescribedOn;
@@ -83,5 +85,75 @@ public class Prescription {
 	public void setPrescribedOn(String prescribedOn) {
 		this.prescribedOn = prescribedOn;
 	}
+
+
+	
+	String patientId;
+
+	public String getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
+	}
+
+	public String getPrescriptionId() {
+		return prescriptionId;
+	}
+
+	public void setPrescriptionId(String prescriptionId) {
+		this.prescriptionId = prescriptionId;
+	}
+
+	public String getVisitDate() {
+		return visitDate;
+	}
+
+	public void setVisitDate(String visitDate) {
+		this.visitDate = visitDate;
+	}
+
+	public String getPrescribedBy() {
+		return prescribedBy;
+	}
+
+	public void setPrescribedBy(String prescribedBy) {
+		this.prescribedBy = prescribedBy;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public ArrayList<String> getListOfDrugs() {
+		return listOfDrugs;
+	}
+
+	public void setListOfDrugs(ArrayList<String> listOfDrugs) {
+		this.listOfDrugs = listOfDrugs;
+	}
+	
+	public String getPrescribedByID() {
+		return prescribedByID;
+	}
+
+	public void setPrescribedByID(String prescribedByID) {
+		this.prescribedByID = prescribedByID;
+	}
+
+	
 
 }

@@ -4,15 +4,16 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
+<%@page import="java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>P-Care | User Dashboard</title>
-		<!-- Tell the browser to be responsive to screen width -->
-		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
 		<!-- CSS Imports -->
+		<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
 		<link rel="stylesheet" href=" <c:url value="/resources/css/bootstrap.min.css"/>"  type='text/css'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"  type='text/css'>
 		<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"  type='text/css'>
@@ -22,16 +23,23 @@
 		<link rel="stylesheet" href=" <c:url value="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"/>"  type='text/css'>
 		<link rel="stylesheet" href="/resources/css/common.css"  type='text/css'>
 		
+		<!-- Added By Sarwagya for-Date Picker -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  	
 		<style type="text/css">
 			.dataTables_filter, .dataTables_info { display: none; }
 		</style>
 		
 		<script src="/resources/js/jquery-3.1.1.min.js" type="text/javascript"></script>
-		<script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="<c:url value="/resources/js/bootstrap.min.js" />" type="text/javascript"></script>
 		<script src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"/>" type="text/javascript"></script>
 		<script src="<c:url value="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"/>" type="text/javascript"></script>
 		<script src="<c:url value="/resources/js/common/common.js"/>" type="text/javascript"></script>
-		
+	 
+  		
 		<script type="text/javascript">
 			$(document).ready(function(){
 			    var patientPanelTable = $('#patientPanelTable').DataTable({
@@ -153,55 +161,279 @@
 														<td><a href="">${patient.dateOfBirth}.pdf</a></td>
 														<td>
 															<a href="" title="Edit patient's details"class="fa fa-edit"></a>
-															<a href="" title="Add reports" data-toggle="modal" data-target="#myModal" style="margin-left: 10px;" class="fa fa-plus"></a>
+															<a href="" title="Add reports" data-toggle="modal" data-target="#myModal${patient.id}" style="margin-left: 10px;" class="fa fa-plus"></a>
 															<!-- Modal -->
-															<div class="modal fade" id="myModal" role="dialog">
-																<div class="modal-dialog" style="width: 800px">
-																	<!-- Modal content-->
-																	<div class="modal-content">
-																		<div class="modal-header">
-																			<button type="button" class="close" data-dismiss="modal">&times;</button>
-																			<h4 class="modal-title">Modal Header</h4>
-																		</div>
-																		<div class="modal-body">
-																			<div style="overflow: auto">
-																				<table class="table">
-																					<thead>
-																						<tr>
-																							<th>Drug Name</th>
-																							<th>Form</th>
-																							<th>Strength</th>
-																							<th>Directions</th>
-																						</tr>
-																					</thead>
-																					<tbody>
-																						<tr>
-																							<td><span><input type="text" id="drugName" /></span></td>
-																							<td>
-																								<select id="form">
-																									<option value="volvo">Liquid</option>
-																									<option value="saab">Tablet</option>
-																									<option value="mercedes">Capsule</option>
-																									<option value="audi">Drops</option>
-																									<option value="audi">Inhaler</option>
-																									<option value="audi">Injection</option>
-																								</select>
-																							</td>
-																							<td><span><input type="text" value="250mg" id="strength"/></span></td>
-																							<td><span><input type="text" id="directions"></span></td>
-																							<td><input type="text" id="prescribedBy" style="display: none" value="${listOfData.user.name}"/></td>
-																						</tr>
-																					</tbody>
-																				</table>
-																			</div>
-																		</div>
-																		<div class="modal-footer">
-																			<button type="button" id="submitd" class="btn btn-default" data-dismiss="modal">Submit</button>
-																		</div>
-																	</div>
+															
+															<div class="modal fade" id="myModal${patient.id}" role="dialog">
+														<div class="modal-dialog" style="width: 800px">
+															<!-- Modal content-->
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close"
+																		data-dismiss="modal">&times;</button>
+																	<h4 class="modal-title">Prescribe Medication</h4>
 																</div>
+
+																<div class="modal-body">
+																
+																<span id="alert">
+																
+																</span>
+																
+																			
+																<!-- BEGINS Reference hidden Parameter By Sarwagya-->
+																<input type="hidden" id="patientId" value="${patient.id}">
+																<input type="hidden" id="noOfDrugs_${patient.id}" value="1">
+																<input type="hidden" id="prescribedBy_${patient.id}" value="${listOfData.user.name}">
+																
+																<!-- Reference hidden Parameter ENDS -->
+																	
+																	<div class="box box-info">
+																		<div class="box-header">
+																			<h3 class="box-title">Medication</h3>
+																		</div>
+
+																		<div class="box-body">
+																			<!-- /.box-body111 -->
+
+<div class="row">
+
+
+																				<div class="col-md-4">
+
+																					<div class="box">
+																						<!-- /.box-header -->
+																						<!-- form start -->
+																						
+																							<div class="box-body">
+
+																								<div class="form-group">
+																									<label>Patient Name</label> <input id="patientName" type="text"
+																										class="form-control" value="${patient.name}"
+																										disabled="">
+																								</div>
+																								<div class="form-group">
+																									<label>Prescription ID</label> <input id="prescriptionId_${patient.id}" type="text"
+																										<%
+																										Random rand = new Random();
+																										int n = rand.nextInt(90000) + 10000;
+																										%>
+																										
+																										class="form-control" value="PR<%=n%>"
+																										disabled="">
+																								</div>
+																								<div class="form-group">
+																									<label>Visit Date:</label>
+																									<div class="input-group">
+																										<div class="input-group-addon">
+																											<i class="fa fa-calendar"></i>
+																										</div>
+																										<input type="text" id="visitDate_${patient.id}" style="height: 30px;width: 85px;" 
+																										onclick="datePickerVisitDate(${patient.id})" placeholder="MM/DD/YYYY">
+																									</div>
+																									<!-- /.input group -->
+																								</div>
+
+
+
+
+
+
+																							</div>
+																							<!-- /.box-body -->
+
+																						<div class="box-footer">
+
+																							<button id="submitPrescription" class="btn btn-primary">Prescribe
+																								Now</button>
+																							<button type="button" class="btn"
+																								data-dismiss="modal">Cancel</button>
+																						</div>
+																					</div>
+																					<!-- /.box -->
+
+																				</div>
+
+
+
+
+
+
+																				<div class="col-md-8">
+
+																					<div class="box">
+																						<!-- /.box-header -->
+																						<!-- form start -->
+																							<div class="box-body" id="rowAddLogic" style="overflow-y: auto; 
+																							height: 240px;">
+
+																								<div class="row">
+
+																									<div class="col-md-4">
+																										<div class="form-group">
+																											<label>Prescribed by</label> <input
+																												type="text" class="form-control"
+																												style="height: 28px; width: 100px"
+																												value="${listOfData.user.name}" disabled="">
+																										</div>
+																									</div>
+
+																									<div class="col-md-4">
+																										<div class="form-group">
+																											<label>Start Date:</label>
+																											<div class="input-group">
+																												<div class="input-group-addon">
+																													<i class="fa fa-calendar"></i>
+																												</div>
+																												<input type="text" id="startDate_${patient.id}"
+																													style="height: 28px; width: 100px"
+																													onclick="datePickerStartDate(${patient.id})" placeholder="MM/DD/YYYY">
+																											</div>
+																											<!-- /.input group -->
+																										</div>
+																									</div>
+
+																									<div class="col-md-4">
+																										<div class="form-group">
+																											<label>End Date:</label>
+																											<div class="input-group">
+																												<div class="input-group-addon">
+																													<i class="fa fa-calendar"></i>
+																												</div>
+																												<input type="text" id="endDate_${patient.id}"
+																													style="height: 28px; width: 100px"
+																													onclick="datePickerEndDate(${patient.id})" placeholder="MM/DD/YYYY">
+																											</div>
+																											<!-- /.input group -->
+																										</div>
+																									</div>
+																								</div>
+
+
+																								<div id="drugsId0" class="row">
+
+																									<div class="col-md-4">
+
+
+																										<div class="form-group">
+																											<label>Drug Name</label> <input type="text"
+																												id="drugName0" class="form-control"
+																												placeholder="Enter Drug Name">
+																										</div>
+																									</div>
+
+
+
+																									<div class="col-md-6">
+
+
+																										<div class="form-group">
+																											<label>SIG</label>
+																											<textarea id="sig0" class="form-control" rows="1"
+																												placeholder="Click here to write"></textarea>
+																										</div>
+																									</div>
+																									<div class="col-md-2">
+
+																										<div class="form-group">
+																											<label>Qty</label> <input id="qty0" type="text"
+																												class="form-control" placeholder="0">
+																										</div>
+																									</div>
+																									
+																								</div>
+
+																								<div id="drugsId1" class="row"></div>
+																							
+
+
+																							</div>
+																							<!-- /.box-body -->
+																								
+																					  	 <div class="box-footer">
+
+																							<button id="add_row" type="button" class="btn btn-primary pull-right">+ New Drug</button>
+																							<button id="remove_row" type="button" class="btn btn-danger">Remove</button>
+																						</div>
+
+																					</div>
+																					<!-- /.box -->
+
+																				</div>
+
+																			</div>
+
+
+
+
+																		</div>
+																		<!-- /.box-body2 -->
+
+																	</div>
+
+
+																	<!-- Current Medication Box -->
+
+																	<div class="box">
+																		<div class="box-header">
+																			<h3 class="box-title">Current Medication</h3>
+																		</div>
+																		<!-- /.box-header -->
+																		<div class="box-body no-padding">
+																			<table class="table table-striped">
+																				<tbody>
+																					<tr>
+																						<th>Drug Name</th>
+																						<th>SIG</th>
+																						<th>Start Date</th>
+																						<th>End Date</th>
+																						<th>Qty</th>
+																					</tr>
+																					<tr>
+																						<td>Maxiat 5mg Tablet</td>
+																						<td>Once Daily</td>
+																						<td>14/11/2017</td>
+																						<td></td>
+																						<td>40 Tablet</td>
+
+																					</tr>
+
+
+																					<tr>
+																						<td>Maxiat 5mg Tablet</td>
+																						<td>Once Daily</td>
+																						<td>14/11/2017</td>
+																						<td></td>
+																						<td>40 Tablet</td>
+
+																					</tr>
+
+																					<tr>
+																						<td>Maxiat 5mg Tablet</td>
+																						<td>Once Daily</td>
+																						<td>14/11/2017</td>
+																						<td></td>
+																						<td>40 Tablet</td>
+
+																					</tr>
+
+
+
+																				</tbody>
+																			</table>
+																		</div>
+																		<!-- /.box-body -->
+																	</div>
+																	<!-- Current Medication Box Ends -->
+
+
+																</div>
+																
+
 															</div>
-															<a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
+														</div>
+													</div> 
+													<a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
 														</td>
 													</tr>
 												</c:forEach>
@@ -224,5 +456,21 @@
 				</footer>
 			</div>
 		</div>
+		
+	<!-- jQuery 2.1.4 -->
+
+	<script src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
+
+	<!-- jQuery UI 1.11.4 -->
+
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+	<script>
+		$.widget.bridge('uibutton', $.ui.button);
+	</script>
+
+	
 	</body>
 </html>
