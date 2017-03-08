@@ -26,7 +26,7 @@ public class PatientController {
 	@RequestMapping("/patients/{id}")
 	public Patient getPatient(@PathVariable String emailId) 
 	{
-		return patientService.getPatient(emailId);
+		return patientService.getPatientByEmail(emailId);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value="/patients")

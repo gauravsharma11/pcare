@@ -15,3 +15,60 @@ html {
     bottom: 0px !important;
     width: 100% !important;	
 }
+
+.marginBottom10	{
+	margin-bottom: 10px !important;
+}
+
+.paddingRight2	{
+	padding-right: 2px;
+}
+
+.paddingRight3	{
+	padding-right: 3px;
+}
+
+.paddingRight5	{
+	padding-right: 5px;
+}
+
+.paddingRight10	{
+	padding-right: 10px;
+}
+
+
+.marginRight5	{
+	margin-right: 5px;
+}
+
+.marginRight10	{
+	margin-right: 10px;
+}
+
+.patientImageWidth	{
+	width: 220px
+}
+
+input[type="text"] {
+	 -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+
+.displayBlock	{
+	display: block;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}

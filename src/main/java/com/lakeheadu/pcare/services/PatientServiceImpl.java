@@ -29,9 +29,15 @@ public class PatientServiceImpl implements PatientService
 	}
 	
 	@Transactional
-	public Patient getPatient(String emailId) 
+	public Patient getPatientByEmail(String emailId) 
 	{
-		return patientDAO.getPatient(emailId);
+		return patientDAO.getPatientByEmail(emailId);
+	}
+	
+	@Transactional
+	public Patient getPatientById(int id) 
+	{
+		return patientDAO.getPatientById(id);
 	}
 
 	@Transactional

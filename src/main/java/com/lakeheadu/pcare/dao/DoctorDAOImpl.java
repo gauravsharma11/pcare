@@ -52,7 +52,7 @@ public class DoctorDAOImpl implements DoctorDAO{
 	}
 
 	@Override
-	public Doctor getDoctor(String emailId) {
+	public Doctor getDoctorByEmail(String emailId) {
 		
 		try
 		{
@@ -63,7 +63,7 @@ public class DoctorDAOImpl implements DoctorDAO{
 		}
 		catch(HibernateException e)
 		{
-			System.out.println("Unable to fetch doctor object from id");
+			System.out.println("Unable to fetch doctor object from emailId");
 			e.printStackTrace();
 			return null;
 		}
@@ -84,6 +84,24 @@ public class DoctorDAOImpl implements DoctorDAO{
 			System.out.println("Unable to save list of doctors");
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+	@Override
+	public Doctor getDoctorById(int id) {
+		
+		try
+		{
+			Query query = sessionFactory.getCurrentSession().createQuery("from Doctor d where d.id = :id");
+			query.setInteger("id", id);
+		    Doctor doctor = (Doctor) query.uniqueResult();
+		    return doctor;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Unable to fetch doctor object from id");
+			e.printStackTrace();
+			return null;
 		}
 	}
 

@@ -6,46 +6,41 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>P-Care | User Dashboard</title>
-		
-		<!-- Tell the browser to be responsive to screen width -->
-		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-		
-		<!-- CSS files -->
-		<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-		<link rel='stylesheet' href="/resources/css/AdminLTE.min.css" type='text/css' />
-		<link rel="stylesheet" href=" <c:url value="/resources/css/_all-skins.min.css"/> ">
-		<link rel="stylesheet" href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-		<link rel="stylesheet" href="<c:url value="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"/>">
-		<link rel="stylesheet" href="/resources/css/common.css">
-		
-		<style type="text/css">
-			.dataTables_filter, .dataTables_info { display: none; }
-		</style>
-		
-		<!-- JS files -->
-		<script src="/resources/js/jquery-3.1.1.min.js" type="text/javascript"></script>
-		<script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
-		<script src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"/>" type="text/javascript"></script>
-		<script src="<c:url value="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"/>" type="text/javascript"></script>
-		 <script type="text/javascript">
-			$(document).ready(function(){
-			    var docPanelTable = $('#docPanelTable').DataTable({
-			    	"bPaginate" : false,
-			    	"bInfo" : false,
-			    });
-			    
-			    $('#searchDoc').keyup(function(){
-			    	docPanelTable.search($(this).val()).draw() ;
-			    })
-			});
-		
-		</script>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>P-Care | User Dashboard</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- CSS files -->
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel='stylesheet' href="/resources/css/AdminLTE.min.css" type='text/css' />
+<link rel="stylesheet" href=" <c:url value="/resources/css/_all-skins.min.css"/> ">
+<link rel="stylesheet" href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<link rel="stylesheet" href="<c:url value="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"/>">
+<link rel="stylesheet" href="/resources/css/common.css">
+<style type="text/css">
+.dataTables_filter, .dataTables_info { display: none; }
+</style>
+<!-- JS files -->
+<script src="/resources/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"/>" type="text/javascript"></script>
+<script src="<c:url value="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"/>" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var docPanelTable = $('#docPanelTable').DataTable({
+    "bPaginate" : false,
+    "bInfo" : false,
+    });
+   
+    $('#searchDoc').keyup(function(){
+    docPanelTable.search($(this).val()).draw() ;
+    })
+});
+</script>
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
    <div class="container-fluid" style="padding-left: 0px; padding-right: 0px">
@@ -165,106 +160,152 @@
                            style="top: -8px; right: 7px; z-index: 0; font-size: 80px;">
                            <i class="ion fa-list"></i>
                         </div>
-                        <a href="" class="small-box-footer">Go <i
+                        <a href="" class="small-box-footer" data-toggle="modal" data-target="#myModal">Go <i
                            class="fa fa-arrow-circle-right"></i></a>
                      </div>
-                     <button type="button"  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-                     <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog" style="width: 800px">
-                           <!-- Modal content-->
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                 <h4 class="modal-title">Modal Header</h4>
-                              </div>
-                              <div class="modal-body">
-                                 <div style="overflow: auto">
-                                    <table class="display" cellspacing="0" width="100%">
-                                       <thead>
-                                          <tr>
-                                             <th>Prescription No.</th>
-                                             <th>Drug Name</th>
-                                             <th>Form</th>
-                                             <th>Strength</th>
-                                             <th>Directions</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-                                             <td><span>1</td>
-                                             <td><span><input type="text" /></span></td>
-                                             <td>
-                                                <select>
-                                                   <option value="volvo">Liquid</option>
-                                                   <option value="saab">Tablet</option>
-                                                   <option value="mercedes">Capsule</option>
-                                                   <option value="audi">Drops</option>
-                                                   <option value="audi">Inhaler</option>
-                                                   <option value="audi">Injection</option>
-                                                </select>
-                                             </td>
-                                             <td><span><input type="text" value="250mg"/></span></td>
-                                             <td><span><input type="text"></span></td>
-                                          </tr>
-                                          <tr>
-                                             <td><span>2</td>
-                                             <td><span><input type="text" /></span></td>
-                                             <td>
-                                                <select>
-                                                   <option value="volvo">Liquid</option>
-                                                   <option value="saab">Tablet</option>
-                                                   <option value="mercedes">Capsule</option>
-                                                   <option value="audi">Drops</option>
-                                                   <option value="audi">Inhaler</option>
-                                                   <option value="audi">Injection</option>
-                                                </select>
-                                             </td>
-                                             <td><span><input type="text" value="250mg"/></span></td>
-                                             <td><span><input type="text"></span></td>
-                                          </tr>
-                                          <tr>
-                                             <td><span>3</td>
-                                             <td><span><input type="text" /></span></td>
-                                             <td>
-                                                <select>
-                                                   <option value="volvo">Liquid</option>
-                                                   <option value="saab">Tablet</option>
-                                                   <option value="mercedes">Capsule</option>
-                                                   <option value="audi">Drops</option>
-                                                   <option value="audi">Inhaler</option>
-                                                   <option value="audi">Injection</option>
-                                                </select>
-                                             </td>
-                                             <td><span><input type="text" value="250mg"/></span></td>
-                                             <td><span><input type="text"></span></td>
-                                          </tr>
-                                          <tr>
-                                             <td><span>4</td>
-                                             <td><span><input type="text" /></span></td>
-                                             <td>
-                                                <select>
-                                                   <option value="volvo">Liquid</option>
-                                                   <option value="saab">Tablet</option>
-                                                   <option value="mercedes">Capsule</option>
-                                                   <option value="audi">Drops</option>
-                                                   <option value="audi">Inhaler</option>
-                                                   <option value="audi">Injection</option>
-                                                </select>
-                                             </td>
-                                             <td><span><input type="text" value="250mg"/></span></td>
-                                             <td><span><input type="text"></span></td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
                   </div>
+                  
+                  <div class="modal fade" id="myModal" role="dialog">
+<div class="modal-dialog" style="width: 800px">
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">E-Prescription</h4>
+</div>
+
+<div class="modal-body">
+<!-- Hidden Variable BEGIN-->
+<input type="hidden" id="email" value="${listOfData.user.emailId}">
+<!-- Hidden Variable END-->
+<span id="alert">
+</span>
+<div class="box box-info">
+<div class="box-header">
+<h3 class="box-title">List of Prescription</h3>
+</div>
+
+<div class="box-body"> <!-- /.Main box-body -->
+<!-- List Of Prescriptions BEGINS-->
+<div class="box-body no-padding">
+<table class="table table-striped">
+<tbody id="listOfPrescription">
+<tr>
+<th>Prescription No</th>
+<th>Prescribed By</th>
+<th>Prescribed On</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+<script>
+
+
+var email=$("#email").val();
+var result = $.ajax({
+                                                    url: "getlistOfPrescription",
+                                                    async: false,
+                                                    type: 'post',
+                                                  data: "emailId="+email,
+                                                }).responseText;
+  var data = JSON.parse(result);
+                                            //  alert(data[0].prescriptionBy);
+for(var i=0;i<data.length;i++){
+if(data[i].flag==1){
+ 
+$("#listOfPrescription").append("<tr>"+
+"<td>"+data[i].prescriptionId+"</td>"+
+"<td>"+data[i].prescriptionBy+"</td>"+
+"<td>"+data[i].prescribedOn+"</td>"+
+"<td><span class='label label-success'>New</span></td>"+
+"<td>"+
+"<a href='' title='View' class='fa fa-eye'></a>"+
+"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
+"</td>"+
+
+"</tr>");
+ 
+}else{
+$("#listOfPrescription").append("<tr>"+
+"<td>"+data[i].prescriptionId+"</td>"+
+"<td>"+data[i].prescriptionBy+"</td>"+
+"<td>"+data[i].prescribedOn+"</td>"+
+"<td><span class='label label-warning'>Checked</span></td>"+
+"<td>"+
+"<a href='' title='View' class='fa fa-eye'></a>"+
+"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
+"</td>"+
+
+"</tr>");
+}
+ 
+}
+
+</script>
+<!-- <tr>
+<td>PR4453</td>
+<td>Richard Denson</td>
+<td>14/11/2017</td>
+<td><span class="label label-success">New</span></td>
+<td>
+<a href="" title="View"  class="fa fa-eye"></a>
+<a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
+</td>
+
+</tr>
+<tr>
+<td>PR4453</td>
+<td>Richard Denson</td>
+<td>14/11/2017</td>
+<td><span class="label label-success">New</span></td>
+<td>
+<a href="" title="View" class="fa fa-eye"></a>
+<a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
+</td>
+
+</tr>
+<tr>
+<td>PR4453</td>
+<td>Richard Denson</td>
+<td>14/11/2017</td>
+<td><span class="label label-warning">Seen</span></td>
+<td>
+<a href="" title="View"  class="fa fa-eye"></a>
+<a href="" title="delete"  style="margin-left: 10px;" class="fa fa-trash-o"></a>
+</td>
+
+</tr>
+<tr>
+<td>PR4453</td>
+<td>Richard Denson</td>
+<td>14/11/2017</td>
+<td><span class="label label-warning">Seen</span></td>
+<td>
+<a href="" title="View"  class="fa fa-eye"></a>
+<a href="" title="delete"  style="margin-left: 10px;" class="fa fa-trash-o"></a>
+</td>
+
+</tr> -->
+
+</tbody>
+</table>
+</div>
+<!-- List Of Prescriptions ENDS-->
+
+</div> <!-- /.Main box-body End -->
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+</div> 
+                  
                   <!-- ./col -->
                   <div class="col-lg-3 col-xs-7">
                      <!-- small box -->
@@ -293,7 +334,7 @@
                                  <input type="text" name="table_search" class="form-control input-sm pull-right" id="searchDoc" placeholder="Search">
                                  <div class="input-group-btn">
                                     <button class="btn btn-sm btn-default padding8px">
-                                    	<i class="fa fa-search"></i>
+                                    <i class="fa fa-search"></i>
                                     </button>
                                  </div>
                               </div>
@@ -302,37 +343,37 @@
                         <!-- /.box-header -->
                         <div class="box-body table-responsive no-padding">
                            <table class="table table-hover" id="docPanelTable" class="display" cellspacing="0" width="100%">
-                           		<thead>
-	                                <tr>
-	                                   <th>ID</th>
-	                                   <th>Name</th>
-	                                   <th>Member since</th>
-	                                   <th>Status</th>
-	                                   <th>Clinical speciality</th>
-	                                   <th>Actions</th>
-	                                </tr>
+                           <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Name</th>
+                                  <th>Member since</th>
+                                  <th>Status</th>
+                                  <th>Clinical speciality</th>
+                                  <th>Actions</th>
+                                </tr>
                                 </thead>
                                  <tbody>
-	                                 <c:forEach items="${listOfData.doctors}" var="doctor">
-	                                    <tr>
-	                                       <td>${doctor.id}</td>
-	                                       <td>${doctor.name}</td>
-	                                       <td>${doctor.dateOfBirth}</td>
-	                                       <c:if test="${doctor.status=='a'}">
-	                                          <td><span class="label label-success">Available</span></td>
-	                                       </c:if>
-	                                       <c:if test="${doctor.status=='d'}">
-	                                          <td><span class="label label-danger">InActive</span></td>
-	                                       </c:if>
-	                                       <td>${doctor.speciality}</td>
-	                                       <td><a href="" title="View doctor's detail"
-	                                          class="fa fa-eye"></a>
-	                                          <a href=""title="delete" style="margin-left: 10px;"
-	                                             class="fa fa-trash-o"></a>
-	                                       </td>
-	                                    </tr>
-	                                 </c:forEach>
-                              	</tbody>
+                                <c:forEach items="${listOfData.doctors}" var="doctor">
+                                    <tr>
+                                      <td>${doctor.id}</td>
+                                      <td>${doctor.name}</td>
+                                      <td>${doctor.dateOfBirth}</td>
+                                      <c:if test="${doctor.status=='a'}">
+                                          <td><span class="label label-success">Available</span></td>
+                                      </c:if>
+                                      <c:if test="${doctor.status=='d'}">
+                                          <td><span class="label label-danger">InActive</span></td>
+                                      </c:if>
+                                      <td>${doctor.speciality}</td>
+                                      <td><a href="" title="View doctor's detail"
+                                          class="fa fa-eye"></a>
+                                          <a href=""title="delete" style="margin-left: 10px;"
+                                            class="fa fa-trash-o"></a>
+                                      </td>
+                                    </tr>
+                                </c:forEach>
+                              </tbody>
                            </table>
                         </div>
                         <!-- /.box-body -->

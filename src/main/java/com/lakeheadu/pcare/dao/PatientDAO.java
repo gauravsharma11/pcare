@@ -11,8 +11,10 @@ public interface PatientDAO
 	
 	public List<Patient> getAllPatients();
 	
-	public Patient getPatient(String emailId);
+	public Patient getPatientByEmail(String emailId);
 	
 	public boolean savePatients(List<Patient> patient);
+
+	public Patient getPatientById(int id);
 
 }

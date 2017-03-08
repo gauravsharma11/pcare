@@ -1,23 +1,39 @@
 package com.lakeheadu.pcare.models;
 
+import java.util.ArrayList;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class Prescription {
-	
+
 	
 	@Id
+	@Column(name="prescriptionId")
+	private String prescriptionId;
+	
+	private String patientId;
+	
 	@Column
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int Id;
-
+	private String visitDate;
+	
+	private String prescribedById;
+	
+	@Column
+	private String startDate;
+	
+	@Column
+	private String endDate;
+	
+	@Column
+	private ArrayList<String> listOfDrugs = new ArrayList<String>();
+	
 	@Column
 	private String drugName;
 	
@@ -35,6 +51,29 @@ public class Prescription {
 	
 	@Column
 	private String prescribedOn;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Patient patient;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Doctor doctor;
+	
+	
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public String getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
+	}
 
 	public String getDrugName() {
 		return drugName;
@@ -68,13 +107,6 @@ public class Prescription {
 		this.directions = directions;
 	}
 
-	public String getPrescribedBy() {
-		return prescribedBy;
-	}
-
-	public void setPrescribedBy(String prescribedBy) {
-		this.prescribedBy = prescribedBy;
-	}
 
 	public String getPrescribedOn() {
 		return prescribedOn;
@@ -83,5 +115,68 @@ public class Prescription {
 	public void setPrescribedOn(String prescribedOn) {
 		this.prescribedOn = prescribedOn;
 	}
+	
+	public Patient getPatient() {
+		return patient;
+	}
 
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public String getPrescriptionId() {
+		return prescriptionId;
+	}
+
+	public void setPrescriptionId(String prescriptionId) {
+		this.prescriptionId = prescriptionId;
+	}
+
+	public String getVisitDate() {
+		return visitDate;
+	}
+
+	public void setVisitDate(String visitDate) {
+		this.visitDate = visitDate;
+	}
+
+	public String getPrescribedBy() {
+		return prescribedBy;
+	}
+
+	public void setPrescribedBy(String prescribedBy) {
+		this.prescribedBy = prescribedBy;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public ArrayList<String> getListOfDrugs() {
+		return listOfDrugs;
+	}
+
+	public void setListOfDrugs(ArrayList<String> listOfDrugs) {
+		this.listOfDrugs = listOfDrugs;
+	}
+	
+	public String getPrescribedById() {
+		return prescribedById;
+	}
+
+	public void setPrescribedById(String prescribedById) {
+		this.prescribedById = prescribedById;
+	}
 }

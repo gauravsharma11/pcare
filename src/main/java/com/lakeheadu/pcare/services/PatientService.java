@@ -10,7 +10,9 @@ public interface PatientService
 	
 	public List<Patient> getAllPatients();
 	
-	public Patient getPatient(String emailId);
+	public Patient getPatientByEmail(String emailId);
+	
+	public Patient getPatientById(int id);
 	
 	public boolean savePatients(List<Patient> patient);
 }

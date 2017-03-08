@@ -34,9 +34,9 @@ public class DoctorServiceImpl implements DoctorService
 	}
 	
 	@Transactional
-	public Doctor getDoctor(String emailId)
+	public Doctor getDoctorByEmail(String emailId)
 	{
-		return doctorDAO.getDoctor(emailId);
+		return doctorDAO.getDoctorByEmail(emailId);
 	}
 	
 	@Transactional
@@ -46,5 +46,10 @@ public class DoctorServiceImpl implements DoctorService
 			return true;
 		else 
 			return false;
+	}
+
+	@Transactional
+	public Doctor getDoctorById(int id) {
+		return doctorDAO.getDoctorById(id);
 	}
 }

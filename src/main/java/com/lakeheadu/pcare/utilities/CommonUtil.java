@@ -2,8 +2,8 @@ package com.lakeheadu.pcare.utilities;
 
 public class CommonUtil {
 	
-	public static String PATIENT = "patient";
-	public static String DOCTOR = "doctor";
-	public static String STAFF = "staff";
-
+	public final static String PATIENT = "patient";
+	public final static String DOCTOR = "doctor";
+	public final static String STAFF = "staff";
+	
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.joda.time.LocalDate;
 
@@ -57,6 +58,17 @@ public class Doctor {
 	@Column
 	private String status;
 	
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy="patient")
+	private Collection<Prescription> prescriptionList = new ArrayList<Prescription>();
+	
+	public Collection<Prescription> getPrescriptionList() {
+		return prescriptionList;
+	}
+
+	public void setPrescriptionList(Collection<Prescription> prescriptionList) {
+		this.prescriptionList = prescriptionList;
+	}
+
 	@ManyToMany(cascade = {CascadeType.MERGE})
 	@JoinTable(name="DOCTOR_PATIENT", joinColumns={@JoinColumn(name="DOCTOR_ID")}, inverseJoinColumns={@JoinColumn(name="PATIENT_ID")})
 	private Collection<Patient> patientsList = new ArrayList<Patient>();

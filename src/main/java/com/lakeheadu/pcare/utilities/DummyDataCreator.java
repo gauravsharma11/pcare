@@ -3,6 +3,11 @@ package com.lakeheadu.pcare.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
 import org.dummycreator.DummyCreator;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +33,8 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 	private DoctorService doctorService;
 	
 	private UserService userService;
+	
+	private EncryptionService encryptionService;
 
 	private List<Patient> patients = new ArrayList<Patient>();
 	private List<Doctor> doctors = new ArrayList<Doctor>();
@@ -35,13 +42,14 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 	
 	private List<User> users = new ArrayList<User>();
 	
-	public PatientService getPatientService() {
-		return patientService;
-	}
-
 	@Autowired
 	public void setPatientService(PatientService patientService) {
 		this.patientService = patientService;
+	}
+	
+	@Autowired
+	public void setEncryptionService(EncryptionService encryptionService) {
+		this.encryptionService = encryptionService;
 	}
 	
 	@Autowired
@@ -70,70 +78,74 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 	
 	public void saveAllDummyData()
 	{
-		Patient patient1 = new Patient("Gaurav Sharma", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "gaurav.sharma19@yahoo.com", "Ontario", 5, "8077082057","Dengu");
-		Patient patient2 = new Patient("Siddhant", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Phillip Street", "Toronto", "sid19@yahoo.com", "Ontario", 5, "8072552672","Tuberculosis");
-		Patient patient3 = new Patient("S grewal", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Pasteur Street", "Waterloo", "grewal@yahoo.com", "Ontario", 5, "8073562057","Malaria");
-		Patient patient4 = new Patient("Harish", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Oliver Road", "Hamilton", "harish@yahoo.com", "Ontario", 5, "8074567980","Dengu");
-		Patient patient5 = new Patient("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667","Tuberculosis");
-		Patient patient6 = new Patient("Bob", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607","Dengu");
-		Patient patient7 = new Patient("Jacky", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603","Malaria");
-		Patient patient8 = new Patient("Bruce", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837","Malaria");
-		Patient patient9 = new Patient("John", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810","Tuberculosis");
-		Patient patient10 = new Patient("Ujjval", 25, new LocalDate (1991, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "ujjval@yahoo.com", "Ontario", 5, "8072226780","Dengu");
+		String value = "Admin123";
+		String hashPassword = "";
+		hashPassword = encryptionService.encrypt(value);
+
+		Patient patient1 = new Patient("Gaurav Sharma", 25, new LocalDate (1991, 12, 11), true, hashPassword , "John Street", "Thunder Bay", "gaurav.sharma19@yahoo.com", "Ontario", 5, "8077082057","Dengu");
+		Patient patient2 = new Patient("Siddhant", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Phillip Street", "Toronto", "sid19@yahoo.com", "Ontario", 5, "8072552672","Tuberculosis");
+		Patient patient3 = new Patient("S grewal", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Pasteur Street", "Waterloo", "grewal@yahoo.com", "Ontario", 5, "8073562057","Malaria");
+		Patient patient4 = new Patient("Harish", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Oliver Road", "Hamilton", "harish@yahoo.com", "Ontario", 5, "8074567980","Dengu");
+		Patient patient5 = new Patient("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667","Tuberculosis");
+		Patient patient6 = new Patient("Bob", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607","Dengu");
+		Patient patient7 = new Patient("Jacky", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603","Malaria");
+		Patient patient8 = new Patient("Bruce", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837","Malaria");
+		Patient patient9 = new Patient("John", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810","Tuberculosis");
+		Patient patient10 = new Patient("Ujjval", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Varsity row", "Oshawa", "ujjval@yahoo.com", "Ontario", 5, "8072226780","Dengu");
 		
 		
-		Doctor doctor1 = new Doctor("Richard", "Neurosurgeon", new LocalDate (1991, 12, 11), true, "Admin123" ,"John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
+		Doctor doctor1 = new Doctor("Richard", "Neurosurgeon", new LocalDate (1991, 12, 11), true, hashPassword ,"John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
 		
 		doctor1.getPatientsList().add(patient1);
 		doctor1.getPatientsList().add(patient2);
 		
-		Doctor doctor2 = new Doctor("Michael", "Addiction psychiatrist", new LocalDate (1954, 01, 26), true,"Admin123" , "Applewood", "Hamilton", "Ontario", "8073569452", "drmike1954@gmail.com","a");
+		Doctor doctor2 = new Doctor("Michael", "Addiction psychiatrist", new LocalDate (1954, 01, 26), true,hashPassword , "Applewood", "Hamilton", "Ontario", "8073569452", "drmike1954@gmail.com","a");
 		
 		doctor2.getPatientsList().add(patient7);
 		doctor2.getPatientsList().add(patient3);
 		
-		Doctor doctor3 = new Doctor("Leon", "Adolescent medicine specialist", new LocalDate (1970, 12, 11), true,"Admin123" , "Red river", "Kingston", "Ontario", "8074269230", "Leon48@gmail.com","a");
+		Doctor doctor3 = new Doctor("Leon", "Adolescent medicine specialist", new LocalDate (1970, 12, 11), true,hashPassword , "Red river", "Kingston", "Ontario", "8074269230", "Leon48@gmail.com","a");
 		
 		doctor3.getPatientsList().add(patient5);
 		doctor3.getPatientsList().add(patient2);
 		
-		Doctor doctor4 = new Doctor("Melissa", "Allergist", new LocalDate (1962, 12, 11), true,"Admin123" , "Varsity row", "Oshawa", "Ontario", "8022569230", "Melken@yahoo.com","d");
+		Doctor doctor4 = new Doctor("Melissa", "Allergist", new LocalDate (1962, 12, 11), true,hashPassword , "Varsity row", "Oshawa", "Ontario", "8022569230", "Melken@yahoo.com","d");
 		
 		doctor4.getPatientsList().add(patient9);
 		doctor4.getPatientsList().add(patient7);
 		
-		Doctor doctor5 = new Doctor("Tom", "Anesthesiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "Machar Street", "Windsor", "Ontario", "8074039230", "tommy5@gmail.com","d");
+		Doctor doctor5 = new Doctor("Tom", "Anesthesiologist", new LocalDate (1991, 12, 11), true,hashPassword , "Machar Street", "Windsor", "Ontario", "8074039230", "tommy5@gmail.com","d");
 		
 		doctor5.getPatientsList().add(patient3);
 		doctor5.getPatientsList().add(patient5);
 		
-		Doctor doctor6 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich454@gmail.com","d");
+		Doctor doctor6 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,hashPassword , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich454@gmail.com","d");
 		
 		doctor6.getPatientsList().add(patient2);
 		doctor6.getPatientsList().add(patient3);
 		
-		Doctor doctor7 = new Doctor("Richard", "Cardiovascular surgeon", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich455@gmail.com","a");
+		Doctor doctor7 = new Doctor("Richard", "Cardiovascular surgeon", new LocalDate (1991, 12, 11), true,hashPassword , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich455@gmail.com","a");
 		
 		doctor7.getPatientsList().add(patient4);
 		doctor7.getPatientsList().add(patient5);
 		
-		Doctor doctor8 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich456@gmail.com","d");
+		Doctor doctor8 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,hashPassword , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich456@gmail.com","d");
 		
 		doctor8.getPatientsList().add(patient6);
 		doctor8.getPatientsList().add(patient7);
 		
-		Doctor doctor9 = new Doctor("Richard", "Radiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich457@gmail.com","a");
+		Doctor doctor9 = new Doctor("Richard", "Radiologist", new LocalDate (1991, 12, 11), true,hashPassword , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich457@gmail.com","a");
 		
 		doctor9.getPatientsList().add(patient8);
 		doctor9.getPatientsList().add(patient9);
 		
-		Doctor doctor10 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,"Admin123" , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich458@gmail.com","d");
+		Doctor doctor10 = new Doctor("Richard", "Cardiologist", new LocalDate (1991, 12, 11), true,hashPassword , "John Street", "Thunder Bay", "Ontario", "8073569230", "rich458@gmail.com","d");
 		
 		doctor10.getPatientsList().add(patient9);
 		doctor10.getPatientsList().add(patient10);
 		
-		User user1 = new User("gaurav.sharma19@yahoo.com", "Admin123", "patient", "Gaurav");
-		User user2 = new User("rich45@gmail.com", "Admin123", "doctor", "Richard");
+		User user1 = new User("gaurav.sharma19@yahoo.com", hashPassword, "patient", "Gaurav");
+		User user2 = new User("rich45@gmail.com", hashPassword, "doctor", "Richard");
 		
 		users.add(user1);
 		users.add(user2);

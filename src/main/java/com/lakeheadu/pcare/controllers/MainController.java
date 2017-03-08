@@ -53,7 +53,7 @@ public class MainController
 		if (validUser.getUserType().equals(CommonUtil.PATIENT)) 
 		{
 			model = new ModelAndView("PatientDashboard");
-			Patient loggedInPatient = patientService.getPatient(validUser.getEmailId());
+			Patient loggedInPatient = patientService.getPatientByEmail(validUser.getEmailId());
 
 			patientDashboard.setDoctors(loggedInPatient.getDoctorsList());
 			patientDashboard.setUser(validUser);
@@ -66,7 +66,7 @@ public class MainController
 		{
 			model = new ModelAndView("DoctorDashboard");
 			
-			Doctor loggedInDoctor = doctorService.getDoctor(validUser.getEmailId());
+			Doctor loggedInDoctor = doctorService.getDoctorByEmail(validUser.getEmailId());
 
 			doctorDashboard.setPatients(loggedInDoctor.getPatientsList());
 			doctorDashboard.setUser(validUser);

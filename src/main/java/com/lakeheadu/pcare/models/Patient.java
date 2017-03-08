@@ -3,13 +3,17 @@ package com.lakeheadu.pcare.models;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -67,6 +71,9 @@ public class Patient
 	@ManyToMany(mappedBy="patientsList", fetch = FetchType.LAZY)
 	private Collection<Doctor> doctorsList = new ArrayList<Doctor>();
 	
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy="patient")
+	private Collection<Prescription> prescriptionList = new ArrayList<Prescription>();
+	
 	public Patient()
 	{
 		
@@ -115,6 +122,14 @@ public class Patient
 
 	public void setDoctorsList(Collection<Doctor> doctorsList) {
 		this.doctorsList = doctorsList;
+	}
+	
+	public Collection<Prescription> getPrescriptionList() {
+		return prescriptionList;
+	}
+
+	public void setPrescriptionList(Collection<Prescription> prescriptionList) {
+		this.prescriptionList = prescriptionList;
 	}
 
 	public LocalDate getDateOfBirth() {

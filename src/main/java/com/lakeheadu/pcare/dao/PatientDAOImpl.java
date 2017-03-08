@@ -52,12 +52,30 @@ public class PatientDAOImpl implements PatientDAO
 	}
 
 	@Override
-	public Patient getPatient(String emailId) {
+	public Patient getPatientByEmail(String emailId) {
 		
 		try
 		{
 			Query q = sessionFactory.getCurrentSession().createQuery("from Patient p where p.emailId = :emailId");
 			q.setString("emailId", emailId);
+		    Patient patient = (Patient) q.uniqueResult();
+		    return patient;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Unable to fetch patient object from emailId");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public Patient getPatientById(int id) {
+		
+		try
+		{
+			Query q = sessionFactory.getCurrentSession().createQuery("from Patient p where p.id = :id");
+			q.setInteger("id", id);
 		    Patient patient = (Patient) q.uniqueResult();
 		    return patient;
 		}

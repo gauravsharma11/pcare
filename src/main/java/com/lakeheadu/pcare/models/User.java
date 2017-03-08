@@ -3,6 +3,7 @@ package com.lakeheadu.pcare.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,10 +23,12 @@ public class User
 	@Column
 	private String name;
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	@OneToOne
+	private Doctor doctor;
+	
+	@OneToOne
+	private Patient patient;
+	
 	public String getEmailId() {
 		return emailId;
 	}
@@ -49,6 +52,27 @@ public class User
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
+	
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	
 	public String getName() {
 		return name;
