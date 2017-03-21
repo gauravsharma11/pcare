@@ -198,11 +198,7 @@
                                                                            </div>
                                                                            <div class="marginBottom10">
                                                                               <label class="displayBlock">Prescription ID</label> <input id="prescriptionId_${patient.id}" type="text"
-                                                                                 <%
-                                                                                    Random rand = new Random();
-                                                                                    int n = rand.nextInt(90000) + 10000;
-                                                                                    %>
-                                                                                 class="form-control" value="PR<%=n%>"
+                                                                                 class="form-control" value=""
                                                                                  disabled>
                                                                            </div>
                                                                            <div class="marginBottom10">
@@ -358,6 +354,7 @@
                                                 </div>
                                              </div>
                                              <a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
+                                          	 
                                           </td>
                                        </tr>
                                     </c:forEach>

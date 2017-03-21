@@ -26,6 +26,7 @@
 </style>
 <!-- JS files -->
 <script src="/resources/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="/resources/js/common/common.js" type="text/javascript"></script>
 <script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"/>" type="text/javascript"></script>
 <script src="<c:url value="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"/>" type="text/javascript"></script>
@@ -165,146 +166,112 @@ $(document).ready(function(){
                      </div>
                   </div>
                   
+                  <!-- Modal Box for E-prescription -->
                   <div class="modal fade" id="myModal" role="dialog">
-<div class="modal-dialog" style="width: 800px">
-<!-- Modal content-->
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal">&times;</button>
-<h4 class="modal-title">E-Prescription</h4>
-</div>
+								<div class="modal-dialog" style="width: 800px">
 
-<div class="modal-body">
-<!-- Hidden Variable BEGIN-->
-<input type="hidden" id="email" value="${listOfData.user.emailId}">
-<!-- Hidden Variable END-->
-<span id="alert">
-</span>
-<div class="box box-info">
-<div class="box-header">
-<h3 class="box-title">List of Prescription</h3>
-</div>
+							<!-- Modal content-->
+										<div class="modal-content">
+													<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">E-Prescription</h4>
+													</div>
 
-<div class="box-body"> <!-- /.Main box-body -->
-<!-- List Of Prescriptions BEGINS-->
-<div class="box-body no-padding">
-<table class="table table-striped">
-<tbody id="listOfPrescription">
-<tr>
-<th>Prescription No</th>
-<th>Prescribed By</th>
-<th>Prescribed On</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-<script>
+							<div class="modal-body">
+								<!-- Hidden Variable BEGIN-->
+								<input type="hidden" id="email" value="${listOfData.user.emailId}">
+								<!-- Hidden Variable END-->
+
+						<span id="alert">
+						</span>
+
+						<div class="box box-info">
+									<div class="box-header">
+											<h3 class="box-title">List of Prescription</h3>
+						</div>
 
 
-var email=$("#email").val();
-var result = $.ajax({
+						<div class="box-body"> <!-- /.Main box-body -->
+								<!-- List Of Prescriptions BEGINS-->
+								<div class="box-body no-padding">
+										<table class="table table-striped">
+										<tbody id="listOfPrescription">
+											<tr>
+											<th>Prescription No</th>
+											<th>Prescribed By</th>
+											<th>Prescribed On</th>
+											<th>Status</th>
+											<th>Action</th>
+											</tr>
+											
+											
+													<script>
+													
+													
+													var email=$("#email").val();
+													var result = $.ajax({
                                                     url: "getlistOfPrescription",
                                                     async: false,
                                                     type: 'post',
                                                   data: "emailId="+email,
                                                 }).responseText;
-  var data = JSON.parse(result);
-                                            //  alert(data[0].prescriptionBy);
-for(var i=0;i<data.length;i++){
-if(data[i].flag==1){
- 
-$("#listOfPrescription").append("<tr>"+
-"<td>"+data[i].prescriptionId+"</td>"+
-"<td>"+data[i].prescriptionBy+"</td>"+
-"<td>"+data[i].prescribedOn+"</td>"+
-"<td><span class='label label-success'>New</span></td>"+
-"<td>"+
-"<a href='' title='View' class='fa fa-eye'></a>"+
-"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
-"</td>"+
-
-"</tr>");
- 
-}else{
-$("#listOfPrescription").append("<tr>"+
-"<td>"+data[i].prescriptionId+"</td>"+
-"<td>"+data[i].prescriptionBy+"</td>"+
-"<td>"+data[i].prescribedOn+"</td>"+
-"<td><span class='label label-warning'>Checked</span></td>"+
-"<td>"+
-"<a href='' title='View' class='fa fa-eye'></a>"+
-"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
-"</td>"+
-
-"</tr>");
-}
- 
-}
-
-</script>
-<!-- <tr>
-<td>PR4453</td>
-<td>Richard Denson</td>
-<td>14/11/2017</td>
-<td><span class="label label-success">New</span></td>
-<td>
-<a href="" title="View"  class="fa fa-eye"></a>
-<a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
-</td>
-
-</tr>
-<tr>
-<td>PR4453</td>
-<td>Richard Denson</td>
-<td>14/11/2017</td>
-<td><span class="label label-success">New</span></td>
-<td>
-<a href="" title="View" class="fa fa-eye"></a>
-<a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
-</td>
-
-</tr>
-<tr>
-<td>PR4453</td>
-<td>Richard Denson</td>
-<td>14/11/2017</td>
-<td><span class="label label-warning">Seen</span></td>
-<td>
-<a href="" title="View"  class="fa fa-eye"></a>
-<a href="" title="delete"  style="margin-left: 10px;" class="fa fa-trash-o"></a>
-</td>
-
-</tr>
-<tr>
-<td>PR4453</td>
-<td>Richard Denson</td>
-<td>14/11/2017</td>
-<td><span class="label label-warning">Seen</span></td>
-<td>
-<a href="" title="View"  class="fa fa-eye"></a>
-<a href="" title="delete"  style="margin-left: 10px;" class="fa fa-trash-o"></a>
-</td>
-
-</tr> -->
-
-</tbody>
-</table>
-</div>
-<!-- List Of Prescriptions ENDS-->
-
-</div> <!-- /.Main box-body End -->
+												  
+												var data = JSON.parse(result);
+												                                            //  alert(data[0].prescriptionBy);
+												for(var i=0;i<data.length;i++){
+												if(data[i].flag==1){
+												 
+												$("#listOfPrescription").append("<tr>"+
+												"<td>"+data[i].prescriptionId+"</td>"+
+												"<td>"+data[i].prescriptionBy+"</td>"+
+												"<td>"+data[i].prescribedOn+"</td>"+
+												"<td><span class='label label-success'>New</span></td>"+
+												"<td>"+
+												'<a id="'+data[i].prescriptionId+'"  onclick="generatePdf(this.id)" title="View" class="fa fa-eye"></a>'+
+												"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
+												"</td>"+
+												
+												"</tr>");
+												 
+												}else{
+												$("#listOfPrescription").append("<tr>"+
+												"<td>"+data[i].prescriptionId+"</td>"+
+												"<td>"+data[i].prescriptionBy+"</td>"+
+												"<td>"+data[i].prescribedOn+"</td>"+
+												"<td><span class='label label-warning'>Checked</span></td>"+
+												"<td>"+
+												"<a href='javascript:callMe(11)' title='View' class='fa fa-eye'></a>"+
+												"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
+												"</td>"+
+												
+												"</tr>");
+												}
+												 
+												}
+												
+												</script>
 
 
-
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-</div> 
+							</tbody>
+						</table>
+									</div>
+									<!-- List Of Prescriptions ENDS-->
+									
+							</div> <!-- /.Main box-body End -->
+									
+									
+									
+									
+							</div>
+									
+							</div>
+									
+									
+									</div>
+									
+							</div>
+				</div> 
+                  <!-- Modal Box for E-Prescription End -->
                   
                   <!-- ./col -->
                   <div class="col-lg-3 col-xs-7">
