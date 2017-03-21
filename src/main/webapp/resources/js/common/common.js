@@ -106,7 +106,7 @@ function addRow(id)
 			'<div class="col-xs-4"><div class="marginBottom10">'+
 			'<label class="displayBlock">Drug Name '+i+'</label> <input type="text" id="drugName_'+id+'_'+i+'" class="form-control" placeholder="Enter Drug Name">'+
 			'</div></div>'+
-			'<div class="col-xs-6">'+
+			'<div class="col-xs-4">'+
 			'<div class="marginBottom10"><label class="displayBlock">SIG</label>'+
 			'<textarea id="sig_'+id+'_'+i+'" class="form-control" rows="1"'+
 			'placeholder="Click here to write"></textarea>'+
@@ -140,6 +140,8 @@ function removeRow(id)
 /*By Sarwagya Khosla - Doctor Prescription Update*/
 function datePickerInitialize(id)
 {
+	document.getElementById("prescriptionId_"+id).value="PR"+Math.floor(Math.random()*89999+10000);
+	
 	$("#visitDate_"+id).datetimepicker({
         format: 'DD/MM/YYYY'
     });
@@ -173,45 +175,10 @@ function removeAllValue(id)
 	}
 }
 
-	function getPrescription(){
-		
-		var email=$("#email").val();
-		var result = $.ajax({
-		                                                    url: "getlistOfPrescription",
-		                                                    async: false,
-		                                                    type: 'post',
-		                                                  data: "emailId="+email,
-		                                                }).responseText;
-		  var data = JSON.parse(result);
-		                                              alert(data[0].prescriptionBy);
-		for(var i=0;i<data.length;i++){
-		if(data[i].flag==1){
-		 
-		$("#listOfPrescription").append("<tr>"+
-		"<td>"+data[i].prescriptionId+"</td>"+
-		"<td>"+data[i].prescriptionBy+"</td>"+
-		"<td>"+data[i].prescribedOn+"</td>"+
-		"<td><span class='label label-success'>New</span></td>"+
-		"<td>"+
-		"<a href='' title='View' class='fa fa-eye'></a>"+
-		"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
-		"</td>"+
+	function generatePdf(id) {
+		var email=document.getElementById("email").value;
+	myWindow = window.open("http://localhost:8080/raw?id=" +id+"&email="+email, "myWindow",
+			"width=700,height=800, top=150, left=300");
 
-		"</tr>");
-		 
-		}else{
-		$("#listOfPrescription").append("<tr>"+
-		"<td>"+data[i].prescriptionId+"</td>"+
-		"<td>"+data[i].prescriptionBy+"</td>"+
-		"<td>"+data[i].prescribedOn+"</td>"+
-		"<td><span class='label label-warning'>Checked</span></td>"+
-		"<td>"+
-		"<a href='' title='View' class='fa fa-eye'></a>"+
-		"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
-		"</td>"+
-
-		"</tr>");
-		}
-		 
-		}
-	}
+}
+	

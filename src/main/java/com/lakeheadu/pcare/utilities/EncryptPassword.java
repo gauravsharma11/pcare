@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 public class EncryptPassword implements EncryptionService
 {
 	
-	private final static String INIT_VECTOR = "PCARE@ADMIN@789";
-	private final static String KEY = "PCARE@LOGIN";
+	private final static String INIT_VECTOR = "PCARE@ADMIN@7891";
+	private final static String KEY = "PCARE@LOGIN@1234";
 	
 	public String encrypt(String value) 
 	{
