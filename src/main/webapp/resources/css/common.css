@@ -20,6 +20,14 @@ html {
 	margin-bottom: 10px !important;
 }
 
+.floatNone	{
+	float: none !important;
+}
+
+.paddingLeft40	{
+	padding-left: 40px;
+}
+
 .paddingRight2	{
 	padding-right: 2px;
 }
@@ -43,6 +51,16 @@ html {
 
 .marginRight10	{
 	margin-right: 10px;
+}
+
+.height160px	{
+	height: 160px;
+}
+
+.boxStyle {
+	height: inherit;
+    margin-left: 20px;
+    margin-right: 34px;
 }
 
 .patientImageWidth	{
