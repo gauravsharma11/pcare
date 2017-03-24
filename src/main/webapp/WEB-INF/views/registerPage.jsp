@@ -80,7 +80,7 @@
 			</div>
 <!-- 			Container -->
 				<div class = "container">
-					<div class="row about-grids">
+					<!-- <div class="row about-grids">
 							<div class="col-xs-4 abt-grid height160px">
 										<div class=" form-signinLI boxStyle"><h3 class="paddingLeft40  floatNone">Patient</h3>
 										<i class="fa fa-user"></i></div>
@@ -97,9 +97,31 @@
 										</div>
 										
 							</div>
-					</div>
+					</div> -->
+					
+					<div class="modal-body packages">
+									<div class="col-md-6 text-center modal-align">
+										<div class="package">
+											<p>If you are a new Patient please register below.</p>
+											<i class="fa fa-user"></i>
+											<h4>Patient</h4>
+											<a href="patientSignup">Sign Up</a>
+										</div>
+									</div>
+									<div class="col-md-6 text-center modal-align">
+										<div class="package">
+											<p>If you are an unregistered doctor please register below.</p>
+											<i class="fa fa-user-md"></i>
+											<h4>Doctor</h4>
+											<a href="book-a-test.html">Sign Up</a>
+										</div>
+									</div>
+									
+									<div class="clearfix"></div>
+						</div>
 				</div>
-		</section>
+		
+		<div class="thisIsFooter " style="position:fixed ; bottom:0px">
 		<footer class="footerBottom">
 			<div class="copy-right-grids">
 				<div class="container">
@@ -111,5 +133,7 @@
 				</div>
 			</div>
 		</footer>
+		</section>
+		</div>
 	</body>
 </html>
