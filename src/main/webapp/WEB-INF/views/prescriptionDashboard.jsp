@@ -21,11 +21,14 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap-datetimepicker.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/common/common.js"/>"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.debug.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+		<script src="<c:url value="/resources/js/html2pdf.js"/>"></script>
 		
 	</head>
 	<body>
 	 <section class="content content_content" style="width: 70%; margin: auto;">
-         <section class="invoice">
+         <section class="invoice" id="mainSection">
             <!-- title row -->
             <header>
 			   <div class="row">
@@ -36,7 +39,7 @@
                <div class="row">
                   <div class="col-xs-12">
                      <h2 class="page-header">
-                        <i class="fa fa-globe"></i> PCare
+                        <i class=""></i> PCare
                         <small class="pull-right">Date: 2017/01/09</small>
                      </h2>
                   </div>
@@ -65,7 +68,7 @@
                      <br>
                      <b>Address:</b>
                       ${prescription.getPatient().getAddress()}, ${prescription.getPatient().getCity()} <br>
-                     <b>Email:</b> ${prescription.getPatient().getEmailId()}                               
+                     <b>Email:</b><span style="display:inline; word-wrap:break-word;">${prescription.getPatient().getEmailId()} </span>                               
                   </address>
                </div>
                <!-- /.col -->
@@ -110,11 +113,23 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print">
                <div class="col-xs-12">
-               	 <button class="btn btn-primary">Generate PDF</button>
+               	 <button class="btn btn-primary" class="generate" id="${prescription.getPrescriptionId()}" onclick='createPDF(this.id)'>Generate PDF</button>
                  <span class="pull-right"> Signature </span>
                </div>
             </div>
          </section>
       </section>
 	</body>
+	<script>
+		function createPDF(id)
+		{
+			$('#'+id).hide();
+			var pdf = new jsPDF('p', 'pt', 'a4');
+			
+			pdf.addHTML($('#mainSection')[0],function() {
+			    pdf.save('web.pdf');
+			});
+			$('#'+id).show();
+		}
+	</script>
 </html>

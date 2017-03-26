@@ -199,11 +199,3 @@ function removeAllValue(id)
 		$('#rowCount_'+id).val(i);
 	}
 }
-
-function viewPrescriptionReport(id)
-{
-  	var email = document.getElementById("email").value;
-	myWindow = window.open("http://localhost:8080/raw?id=" +id+"&email="+email, "myWindow",
-	"width=700,height=800, top=150, left=300");
-}
-	
