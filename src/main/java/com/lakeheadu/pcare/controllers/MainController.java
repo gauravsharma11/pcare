@@ -43,7 +43,12 @@ public class MainController
 	public String loginPage() {
 		return "login";
 	}
-
+	
+	@RequestMapping("/register")
+	public String registerPage() {
+		return "registerPage";
+	}
+	
 	@RequestMapping(value = "/authenticateUser", method = RequestMethod.POST)
 	public ModelAndView authenticateUser(User user)
 	{
