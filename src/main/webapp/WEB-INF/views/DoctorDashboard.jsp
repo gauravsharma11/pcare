@@ -23,8 +23,15 @@
 		<link rel="stylesheet" type='text/css' href="<c:url value="/resources/css/common.css"/>"  >
 		
 		<style type="text/css">
-			.dataTables_filter, .dataTables_info { display: none; }
-			.datepicker{z-index:1151 !important;}
+		
+		.bootstrap-datetimepicker-widget {
+		    z-index: 999 !important;
+		}
+			#patientPanelTable_filter, .dataTables_filter, .dataTables_info 
+			{ 
+				display: none !important; 
+				
+			}
 		</style>
 		
 		<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.1.1.min.js" />"></script>
@@ -125,7 +132,7 @@
                      <div class="col-xs-12">
                         <div class="box">
                            <div class="box-header">
-                              <h3 class="box-title">Panel-Doctors</h3>
+                              <h3 class="box-title">Patients</h3>
                               <div class="box-tools">
                                  <div class="input-group" style="width: 150px;">
                                     <input type="text" name="table_search" class="form-control input-sm pull-right" id="searchPatient" placeholder="Search">
@@ -175,7 +182,7 @@
                                                          <input type="hidden" id="rowCount_${patient.id}" value="1">
                                                          <input type="hidden" id="prescribedBy_${patient.id}" value="${listOfData.user.emailId}">
                                                          <!-- Reference hidden Parameter ENDS -->
-                                                         <div class="box box-info">
+                                                         <div class="box box-info" style="position: relative;">
                                                             <div class="box-header">
                                                                <h3 class="box-title">Patient Details</h3>
                                                             </div>
@@ -205,11 +212,8 @@
                                                                               <label class="displayBlock">Visit Date:</label>
                                                                               	<div class='input-group date' id="visitDate_${patient.id}">
 																                    <input type='text' class="form-control" id="visitDateVal_${patient.id}"  placeholder="MM/DD/YYYY"/>
-																                    <span class="input-group-addon" onclick="datePickerVisitDate(${patient.id})">
-																                    <script type="text/javascript">
-																                    	
-																                    </script>
-																                        <span class="glyphicon glyphicon-calendar" ></span>
+																                    <span class="input-group-addon" onclick="datePickerInitialize(${patient.id})">
+															                        	<span class="glyphicon glyphicon-calendar" ></span>
 																                    </span>
 																                </div>
                                                                               <!-- /.input group -->
@@ -267,7 +271,7 @@
                                                                               </div>
                                                                            </div>
                                                                            <div id="drugsId_${patient.id}_0" class="row">
-                                                                              <div class="col-xs-4">
+                                                                              <div class="col-xs-3">
                                                                                  <div class="marginBottom10">
                                                                                     <label class="displayBlock">Drug Name</label> 
                                                                                     <input type="text"
@@ -275,24 +279,36 @@
                                                                                        placeholder="Enter Drug Name">
                                                                                  </div>
                                                                               </div>
-                                                                              <div class="col-xs-4">
+                                                                              <div class="col-xs-3">
                                                                                  <div class="marginBottom10">
-                                                                                    <label class="displayBlock">SIG</label>
+                                                                                    <label class="displayBlock">Directions</label>
                                                                                     <textarea id="sig_${patient.id}_0" class="form-control" rows="1"
                                                                                        placeholder="Click here to write"></textarea>
                                                                                  </div>
                                                                               </div>
-                                                                              <div class="col-xs-4">
-                                                                                 <div class="marginBottom10">
-                                                                                    <label class="displayBlock">Qty</label> 
-                                                                                    <input id="qty_${patient.id}_0" type="text"
-                                                                                       class="form-control" placeholder="0">
+                                                                              <div class="col-xs-3">
+                                                                                 <div class="marginBottom10" style="margin-left:25px">
+                                                                                    <label class="displayBlock">Form</label>
+                                                                                    <select id="form_${patient.id}_0" class="form-control">
+																					  <option value="*">Select a Form</option>
+																					  <option value="tablet">Tablet</option>
+																					  <option value="capsule">Capsule</option>
+																					  <option value="syrup">Syrup</option>
+																					  <option value="drops">Drops</option>
+																					</select>
                                                                                  </div>
                                                                               </div>
+                                                                              <div class="col-xs-3">
+                                                                                 <div class="marginBottom10">
+                                                                                    <label class="displayBlock">Qty</label> 
+                                                                                   <input id="qty_${patient.id}_0" type="text"
+                                                                                       class="form-control" placeholder="0">
+                                                                               </div>
+                                                                              </div>
                                                                            </div>
-                                                                           <div id="drugsId_${patient.id}_1" class="row"></div>
+                                                                         <div id="drugsId_${patient.id}_1" class="row"></div>
                                                                         </div>
-                                                                        <!-- /.box-body -->
+                                                                      <!-- /.box-body -->
                                                                         <div class="box-footer">
                                                                            <button onclick="addRow(${patient.id})" type="button" class="btn btn-primary pull-left paddingRight5 marginRight10">+ New Drug</button>
                                                                            <button onclick="removeRow(${patient.id})" type="button" class="btn btn-danger pull-left">Remove</button>
@@ -306,55 +322,11 @@
                                                             </div>
                                                             <!-- /.box-body2 -->
                                                          </div>
-                                                         <!-- Current Medication Box -->
-                                                         <div class="box">
-                                                            <div class="box-header">
-                                                               <h3 class="box-title">Current Medication</h3>
-                                                            </div>
-                                                            <!-- /.box-header -->
-                                                            <div class="box-body no-padding">
-                                                               <table class="table table-striped">
-                                                                  <tbody>
-                                                                     <tr>
-                                                                        <th>Drug Name</th>
-                                                                        <th>SIG</th>
-                                                                        <th>Start Date</th>
-                                                                        <th>End Date</th>
-                                                                        <th>Qty</th>
-                                                                     </tr>
-                                                                     <tr>
-                                                                        <td>Maxiat 5mg Tablet</td>
-                                                                        <td>Once Daily</td>
-                                                                        <td>14/11/2017</td>
-                                                                        <td></td>
-                                                                        <td>40 Tablet</td>
-                                                                     </tr>
-                                                                     <tr>
-                                                                        <td>Maxiat 5mg Tablet</td>
-                                                                        <td>Once Daily</td>
-                                                                        <td>14/11/2017</td>
-                                                                        <td></td>
-                                                                        <td>40 Tablet</td>
-                                                                     </tr>
-                                                                     <tr>
-                                                                        <td>Maxiat 5mg Tablet</td>
-                                                                        <td>Once Daily</td>
-                                                                        <td>14/11/2017</td>
-                                                                        <td></td>
-                                                                        <td>40 Tablet</td>
-                                                                     </tr>
-                                                                  </tbody>
-                                                               </table>
-                                                            </div>
-                                                            <!-- /.box-body -->
-                                                         </div>
-                                                         <!-- Current Medication Box Ends -->
                                                       </div>
                                                    </div>
                                                 </div>
                                              </div>
                                              <a href="" title="delete" style="margin-left: 10px;" class="fa fa-trash-o"></a>
-                                          	 
                                           </td>
                                        </tr>
                                     </c:forEach>

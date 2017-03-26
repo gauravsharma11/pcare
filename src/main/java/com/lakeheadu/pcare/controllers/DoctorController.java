@@ -1,16 +1,23 @@
 package com.lakeheadu.pcare.controllers;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
+import java.util.List;
+
+import javax.mail.internet.InternetAddress;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.lakeheadu.pcare.models.Doctor;
+import com.lakeheadu.pcare.models.Drug;
 import com.lakeheadu.pcare.models.Patient;
 import com.lakeheadu.pcare.models.Prescription;
 import com.lakeheadu.pcare.models.User;
@@ -21,53 +28,79 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
+import it.ozimov.springboot.mail.model.Email;
+import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
+import it.ozimov.springboot.mail.service.EmailService;
+
+
 @Controller
 public class DoctorController 
 {
 	@Autowired
-	PrescriptionService prescriptionService;
+	private PrescriptionService prescriptionService;
 	
 	@Autowired
-	PatientService patientService;
+	private PatientService patientService;
 	
 	@Autowired
-	DoctorService doctorService;
+	private DoctorService doctorService;
 	
-	@RequestMapping(value="/addPrescription",method=RequestMethod.POST)
-	 public @ResponseBody boolean addPrescription(Prescription prescriptionInstance)
+	@Autowired
+	public EmailService emailService;
+	
+	@RequestMapping(value="/addPrescription", method=RequestMethod.POST)
+	public @ResponseBody boolean addPrescription(@RequestBody Prescription prescription)
 	{
 		 boolean isInserted=true;
-	//	 int count=0;
-        
-        /*loop for creating list of drugs*/
-//        ArrayList<String[]> list = new ArrayList<String[]>();
-//        for(int i=0;i<prescriptionInstance.getListOfDrugs().size()/3;i++){
-//        	String[] dump = null;
-//        	for(int j=0;j<3;j++){
-//        		dump[j]=prescriptionInstance.getListOfDrugs().get(count++).toString();
-//        	}
-//        	list.add(dump);
-//        }
+		    
+		 List<Drug> drugs = prescription.getDrugs();
 		 
-		Patient prescribedPatient = patientService.getPatientById(Integer.parseInt(prescriptionInstance.getPatientId()));
-		prescriptionInstance.setPatient(prescribedPatient);
-		
-		Doctor prescribedByDoctor = doctorService.getDoctorByEmail(prescriptionInstance.getPrescribedById());
-		prescriptionInstance.setDoctor(prescribedByDoctor);
-		 
-		final String ACCOUNT_SID = "AC97f5a85bbc99b7e3ef8a7fc1399ae0d5";
-		final String AUTH_TOKEN = "43984f1e9cf71aa00296eb4d304902f3";
-		
-		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-		
-		Message.creator(new PhoneNumber("+1"+"8073563615"), new PhoneNumber("+14388004089"), 
-		        "Your prescription has been added by Dr. "+ prescriptionInstance.getDoctor().getName() +" to your pcare account. Log in to your account for more details").create();
-		
-		 if(prescriptionService.savePrescription(prescriptionInstance))
-			 isInserted = true;
+		 if(prescriptionService.saveDrugs(drugs))
+		 {
+			    Patient prescribedPatient = patientService.getPatientById(Integer.parseInt(prescription.getPatientId()));
+				prescription.setPatient(prescribedPatient);
+				
+				Doctor prescribedByDoctor = doctorService.getDoctorByEmail(prescription.getPrescribedById());
+				prescription.setDoctor(prescribedByDoctor);
+				 
+				if(prescriptionService.savePrescription(prescription))
+				{
+					final String ACCOUNT_SID = "AC97f5a85bbc99b7e3ef8a7fc1399ae0d5";
+					final String AUTH_TOKEN = "43984f1e9cf71aa00296eb4d304902f3";
+					
+					Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+					
+					Message.creator(new PhoneNumber("+1"+"8077082057"), new PhoneNumber("+14388004089"), 
+					        "Your prescription has been added by Dr. "+ prescription.getDoctor().getName() +" to your pcare account. Log in to your account for more details").create();
+					
+					Email email = null;
+					 String url = prescription.getUrl();
+				     String someVariable = "Click here to View";
+				     someVariable = someVariable.replaceAll("(.*://[^<>[:space:]]+[[:alnum:]/])", "<a href=\"$1\">"+url+"</a>");
+					try 
+					{
+						email = DefaultEmail.builder()
+						        .from(new InternetAddress("pcare.webhealth@gmail.com", "PCare"))
+						        .to(Lists.newArrayList(new InternetAddress("gaurav.sharma97798@gmail.com", prescribedPatient.getName())))
+						        .subject("noReply-E-Prescription")
+						        .body("Your prescription has been added by Dr. "+ prescription.getDoctor().getName()+ "\nClick this link to view: " +url)
+						        .build();
+						
+						emailService.send(email);
+					} 
+					catch (UnsupportedEncodingException e) 
+					{
+						e.printStackTrace();
+					}
+					   
+					   isInserted = true;
+				}
+				else
+					isInserted = false;
+		 }
 		 else
-			 isInserted = false;
-		 
+			 return false;
+		
 		return isInserted;
     }
 	

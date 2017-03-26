@@ -45,6 +45,10 @@ html {
 	margin-right: 10px;
 }
 
+.marginLeft25	{
+	margin-left: 25px !important;
+}
+
 .patientImageWidth	{
 	width: 220px
 }

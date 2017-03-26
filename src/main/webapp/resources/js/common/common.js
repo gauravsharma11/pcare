@@ -44,30 +44,42 @@ function submitPrescription(id)
 	var startDate = $("#startDateVal_"+patientId).val();
 	var endDate = $("#endDateVal_"+patientId).val();
 	var noOfDrugs = $("#noOfDrugs_"+patientId).val();
-	var listOfDrugs = [];
+	var url = "http://localhost:8080/viewPrescription?id=" +prescriptionId;
+
+	var listOfdata = new Object();
 	
-	for(var i=0;i<noOfDrugs;i++)
+	var listOfdata = {"patientId" : patientId, 
+				  "prescriptionId" : prescriptionId,
+				  "prescribedById" : prescribedBy,
+				  "prescribedOn" : visitDate,
+				  "visitDate" : visitDate, 
+				  "startDate": startDate, 
+				  "endDate" : endDate,
+				  "url" : url
+				}
+				
+	for(var i=0; i < noOfDrugs; i++)
 	{
 		var drugs = [];
-		drugs[0]=$("#drugName_"+patientId+"_"+i).val();
-		drugs[1]=$("#sig_"+patientId+"_"+i).val();
-		drugs[2]=$("#qty_"+patientId+"_"+i).val();
-		listOfDrugs.push(drugs);
+		drugs[0] = $("#drugName_"+patientId+"_"+i).val();
+		drugs[1] = $("#sig_"+patientId+"_"+i).val();
+		drugs[2] = $("#form_"+patientId+"_"+i+" option:selected" ).text();
+		drugs[3] = $("#qty_"+patientId+"_"+i).val();
+		
+		listOfdata["drugs"] = [{ 
+						"name" : drugs[0],
+						"directions" : drugs[1],
+						"form" : drugs[2],
+						"quantity" : drugs[3]
+				}]
 	}
-
-	var listOfdata = "patientId=" + patientId
-					+ "&prescriptionId=" + prescriptionId
-					+ "&prescribedById=" + prescribedBy
-					+ "&visitDate=" + visitDate 
-					+ "&startDate="+ startDate 
-					+ "&endDate=" + endDate
-					+ "&listOfDrugs=" + listOfDrugs;
 
 	$.ajax({
 	        type: "POST",
-	        url: "/addPrescription",
-	        data: listOfdata,
-	        
+	        url: "addPrescription",
+	        data: JSON.stringify(listOfdata),
+	        dataType : "json",
+	        contentType: "application/json",
 	        success: function(response)
 	        {
 		        if(response)
@@ -103,15 +115,25 @@ function addRow(id)
 	var i=$("#rowCount_"+id).val();
 	   
 	$('#drugsId_'+id+'_'+i).html(
-			'<div class="col-xs-4"><div class="marginBottom10">'+
+			'<div class="col-xs-3"><div class="marginBottom10">'+
 			'<label class="displayBlock">Drug Name '+i+'</label> <input type="text" id="drugName_'+id+'_'+i+'" class="form-control" placeholder="Enter Drug Name">'+
 			'</div></div>'+
-			'<div class="col-xs-4">'+
+			'<div class="col-xs-3">'+
 			'<div class="marginBottom10"><label class="displayBlock">SIG</label>'+
 			'<textarea id="sig_'+id+'_'+i+'" class="form-control" rows="1"'+
 			'placeholder="Click here to write"></textarea>'+
 			'</div></div>'+
-			'<div class="col-xs-2">'+
+			' <div class="col-xs-3">'+
+            ' <div class="marginBottom10">' +
+            ' <label class="displayBlock">Form</label>' +
+            ' <select id="form_'+id+'_'+i+'" class="form-control">' +
+			'  <option value="tablet">Tablet</option>' +
+			'  <option value="capsule">Capsule</option>' +
+			'  <option value="syrup">Syrup</option>' +
+		    '  <option value="drops">Drops</option>' +
+			'  </select>' +
+            '</div></div>' +
+			'<div class="col-xs-3">'+
 			'<div class="marginBottom10">'+
 			'<label class="displayBlock">Qty</label> <input type="text"'+
 			'id="qty_'+id+'_'+i+'" class="form-control" placeholder="0">'+
@@ -136,6 +158,7 @@ function removeRow(id)
 		$('#rowCount_'+id).val(i);
 	}
 }
+
 
 /*By Sarwagya Khosla - Doctor Prescription Update*/
 function datePickerInitialize(id)
@@ -163,7 +186,9 @@ function removeAllValue(id)
 	$("#alert"+id).html("");
 	$("#drugName_"+id+"_0").val("");
 	$("#sig_"+id+"_0").val("");
+	$("#form_"+id+"_0").val("");
 	$("#qty_"+id+"_0").val("");
+	
 	var i=$("#rowCount_"+id).val();
 	
 	while(i>1)
@@ -175,10 +200,10 @@ function removeAllValue(id)
 	}
 }
 
-	function generatePdf(id) {
-		var email=document.getElementById("email").value;
+function viewPrescriptionReport(id)
+{
+  	var email = document.getElementById("email").value;
 	myWindow = window.open("http://localhost:8080/raw?id=" +id+"&email="+email, "myWindow",
-			"width=700,height=800, top=150, left=300");
-
+	"width=700,height=800, top=150, left=300");
 }
 	

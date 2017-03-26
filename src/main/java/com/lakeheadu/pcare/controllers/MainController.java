@@ -78,9 +78,4 @@ public class MainController
 		
 		return model;
 	}
-
-	@RequestMapping("/raw")
-	public String generatePDF() {
-		return "raw";
-	}
 }

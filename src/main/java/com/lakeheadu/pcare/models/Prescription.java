@@ -1,28 +1,34 @@
 package com.lakeheadu.pcare.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table
 public class Prescription {
-
 	
 	@Id
 	@Column(name="prescriptionId")
 	private String prescriptionId;
 	
+	@Transient
 	private String patientId;
 	
 	@Column
 	private String visitDate;
 	
+	@Transient
 	private String prescribedById;
 	
 	@Column
@@ -32,33 +38,31 @@ public class Prescription {
 	private String endDate;
 	
 	@Column
-	private ArrayList<String> listOfDrugs = new ArrayList<String>();
-	
-	@Column
-	private String drugName;
-	
-	@Column
-	private String form;
-	
-	@Column
-	private String strength;
-	
-	@Column
-	private String directions;
-	
-	@Column
-	private String prescribedBy;
-	
-	@Column
 	private String prescribedOn;
 	
+	@Column
+	private String url;
+	
+	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Patient patient;
-	
+
+	@JsonIgnore
 	@ManyToOne(cascade=CascadeType.ALL)
 	private Doctor doctor;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Drug> drugs = new ArrayList<Drug>(); 
 	
+	
+	public List<Drug> getDrugs() {
+		return drugs;
+	}
+
+	public void setDrugs(List<Drug> drugs) {
+		this.drugs = drugs;
+	}
+
 	public Doctor getDoctor() {
 		return doctor;
 	}
@@ -74,39 +78,6 @@ public class Prescription {
 	public void setPatientId(String patientId) {
 		this.patientId = patientId;
 	}
-
-	public String getDrugName() {
-		return drugName;
-	}
-
-	public void setDrugName(String drugName) {
-		this.drugName = drugName;
-	}
-
-	public String getForm() {
-		return form;
-	}
-
-	public void setForm(String form) {
-		this.form = form;
-	}
-
-	public String getStrength() {
-		return strength;
-	}
-
-	public void setStrength(String strength) {
-		this.strength = strength;
-	}
-
-	public String getDirections() {
-		return directions;
-	}
-
-	public void setDirections(String directions) {
-		this.directions = directions;
-	}
-
 
 	public String getPrescribedOn() {
 		return prescribedOn;
@@ -131,6 +102,15 @@ public class Prescription {
 	public void setPrescriptionId(String prescriptionId) {
 		this.prescriptionId = prescriptionId;
 	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 
 	public String getVisitDate() {
 		return visitDate;
@@ -138,14 +118,6 @@ public class Prescription {
 
 	public void setVisitDate(String visitDate) {
 		this.visitDate = visitDate;
-	}
-
-	public String getPrescribedBy() {
-		return prescribedBy;
-	}
-
-	public void setPrescribedBy(String prescribedBy) {
-		this.prescribedBy = prescribedBy;
 	}
 
 	public String getStartDate() {
@@ -164,14 +136,6 @@ public class Prescription {
 		this.endDate = endDate;
 	}
 
-	public ArrayList<String> getListOfDrugs() {
-		return listOfDrugs;
-	}
-
-	public void setListOfDrugs(ArrayList<String> listOfDrugs) {
-		this.listOfDrugs = listOfDrugs;
-	}
-	
 	public String getPrescribedById() {
 		return prescribedById;
 	}

@@ -4,44 +4,55 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>P-Care | User Dashboard</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<!-- CSS files -->
-<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel='stylesheet' href="/resources/css/AdminLTE.min.css" type='text/css' />
-<link rel="stylesheet" href=" <c:url value="/resources/css/_all-skins.min.css"/> ">
-<link rel="stylesheet" href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-<link rel="stylesheet" href="<c:url value="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"/>">
-<link rel="stylesheet" href="/resources/css/common.css">
-<style type="text/css">
-.dataTables_filter, .dataTables_info { display: none; }
-</style>
-<!-- JS files -->
-<script src="/resources/js/jquery-3.1.1.min.js" type="text/javascript"></script>
-<script src="/resources/js/common/common.js" type="text/javascript"></script>
-<script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"/>" type="text/javascript"></script>
-<script src="<c:url value="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"/>" type="text/javascript"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-    var docPanelTable = $('#docPanelTable').DataTable({
-    "bPaginate" : false,
-    "bInfo" : false,
-    });
-   
-    $('#searchDoc').keyup(function(){
-    docPanelTable.search($(this).val()).draw() ;
-    })
-});
-</script>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>P-Care | User Dashboard</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- CSS files -->
+		<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+		<link rel='stylesheet' href="/resources/css/AdminLTE.min.css" type='text/css' />
+		<link rel="stylesheet" href=" <c:url value="/resources/css/_all-skins.min.css"/> ">
+		<link rel="stylesheet" href="/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+		<link rel="stylesheet" href="<c:url value="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"/>">
+		<link rel="stylesheet" href="/resources/css/common.css">
+		
+		<style type="text/css">
+			.dataTables_filter, .dataTables_info { display: none; }
+			
+			input[type=submit] {
+			    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Eye_open_font_awesome.svg/120px-Eye_open_font_awesome.svg.png);
+			    border: 0;
+			    display: block;
+			    height: 20;
+			    width: 20;
+			}
+		</style>
+		
+		<!-- JS files -->
+		<script src="/resources/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="/resources/js/common/common.js" type="text/javascript"></script>
+		<script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="<c:url value="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"/>" type="text/javascript"></script>
+		<script src="<c:url value="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"/>" type="text/javascript"></script>
+		<script type="text/javascript">
+			
+			$(document).ready(function(){
+			    var docPanelTable = $('#docPanelTable').DataTable({
+			    "bPaginate" : false,
+			    "bInfo" : false,
+			    });
+			   
+			    $('#searchDoc').keyup(function(){
+			    docPanelTable.search($(this).val()).draw() ;
+			    })
+			});
+		</script>
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
    <div class="container-fluid" style="padding-left: 0px; padding-right: 0px">
@@ -203,50 +214,45 @@ $(document).ready(function(){
 											<th>Status</th>
 											<th>Action</th>
 											</tr>
-											
-											
-													<script>
-													
-													
-													var email=$("#email").val();
-													var result = $.ajax({
-                                                    url: "getlistOfPrescription",
-                                                    async: false,
-                                                    type: 'post',
-                                                  data: "emailId="+email,
-                                                }).responseText;
-												  
+												<script>
+												var email=$("#email").val();
+												var result = $.ajax({
+			                                                    url: "getlistOfPrescription",
+			                                                    async: false,
+			                                                    type: 'post',
+			                                                  	data: "emailId="+email,
+			                                                }).responseText;
+											  
 												var data = JSON.parse(result);
 												                                            //  alert(data[0].prescriptionBy);
-												for(var i=0;i<data.length;i++){
-												if(data[i].flag==1){
-												 
-												$("#listOfPrescription").append("<tr>"+
-												"<td>"+data[i].prescriptionId+"</td>"+
-												"<td>"+data[i].prescriptionBy+"</td>"+
-												"<td>"+data[i].prescribedOn+"</td>"+
-												"<td><span class='label label-success'>New</span></td>"+
-												"<td>"+
-												'<a id="'+data[i].prescriptionId+'"  onclick="generatePdf(this.id)" title="View" class="fa fa-eye"></a>'+
-												"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
-												"</td>"+
-												
-												"</tr>");
-												 
-												}else{
-												$("#listOfPrescription").append("<tr>"+
-												"<td>"+data[i].prescriptionId+"</td>"+
-												"<td>"+data[i].prescriptionBy+"</td>"+
-												"<td>"+data[i].prescribedOn+"</td>"+
-												"<td><span class='label label-warning'>Checked</span></td>"+
-												"<td>"+
-												"<a href='javascript:callMe(11)' title='View' class='fa fa-eye'></a>"+
-												"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
-												"</td>"+
-												
-												"</tr>");
-												}
-												 
+												for(var i=0;i<data.length;i++)
+												{
+													if(data[i].flag==1)
+													{
+														$("#listOfPrescription").append("<tr>"+
+														"<td>"+data[i].prescriptionId+"</td>"+
+														"<td>"+data[i].prescriptionBy+"</td>"+
+														"<td>"+data[i].prescribedOn+"</td>"+
+														"<td><span class='label label-success'>New</span></td>"+
+														'<td><c:url var="addAction" value="/viewPrescription" ></c:url><form:form action="${addAction}" commandName="viewPrescription" method="GET" name="Login_Form">'+
+														'<input type="image" name="id" src="/resources/images/eye.png" style="vertical-align:text-bottom" border="0" title="View" value='+data[i].prescriptionId+'>'+
+														"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
+														"</td></form:form>"+
+														"</tr>");
+													}
+													else
+													{
+														$("#listOfPrescription").append("<tr>"+
+														"<td>"+data[i].prescriptionId+"</td>"+
+														"<td>"+data[i].prescriptionBy+"</td>"+
+														"<td>"+data[i].prescribedOn+"</td>"+
+														"<td><span class='label label-warning'>Checked</span></td>"+
+														"<td>"+
+														"<a href='javascript:callMe(11)' title='View' class='fa fa-eye'></a>"+
+														"<a href='' title='delete' style='margin-left: 10px;' class='fa fa-trash-o'></a>"+   
+														"</td>"+
+														"</tr>");
+													}
 												}
 												
 												</script>
@@ -295,7 +301,7 @@ $(document).ready(function(){
                   <div class="col-xs-12">
                      <div class="box">
                         <div class="box-header">
-                           <h3 class="box-title">Panel-Doctors</h3>
+                           <h3 class="box-title">Doctors</h3>
                            <div class="box-tools">
                               <div class="input-group" style="width: 150px;">
                                  <input type="text" name="table_search" class="form-control input-sm pull-right" id="searchDoc" placeholder="Search">

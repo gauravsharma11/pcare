@@ -5,7 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
+import it.ozimov.springboot.mail.configuration.EnableEmailTools;
+
 @SpringBootApplication(scanBasePackages={"com.lakeheadu.pcare.utilities", "com.lakeheadu.pcare.dao","com.lakeheadu.pcare.models", "com.lakeheadu.pcare.services" , "com.lakeheadu.pcare.controllers"})
+@EnableEmailTools
 public class PCareApp {
 	
 	
