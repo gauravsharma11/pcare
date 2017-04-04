@@ -51,6 +51,14 @@ html {
 	width: 220px
 }
 
+.patientImageWidthM	{
+	width: 170px
+}
+
+.pointerCursor	{
+	cursor: pointer !important;
+	}
+
 input[type="text"] {
 	 -webkit-border-radius: 3px;
      -moz-border-radius: 3px;

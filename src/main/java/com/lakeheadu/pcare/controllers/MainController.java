@@ -60,6 +60,7 @@ public class MainController
 			model = new ModelAndView("PatientDashboard");
 			Patient loggedInPatient = patientService.getPatientByEmail(validUser.getEmailId());
 
+			patientDashboard.setPatient(loggedInPatient);
 			patientDashboard.setDoctors(loggedInPatient.getDoctorsList());
 			patientDashboard.setUser(validUser);
 
@@ -82,5 +83,10 @@ public class MainController
 		}
 		
 		return model;
+	}
+	
+	@RequestMapping("/patientSignup")
+	public String patientSignup() {
+		return "PatientSignup";
 	}
 }

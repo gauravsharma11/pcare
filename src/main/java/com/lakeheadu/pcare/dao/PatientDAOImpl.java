@@ -1,6 +1,7 @@
 package com.lakeheadu.pcare.dao;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -9,6 +10,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.lakeheadu.pcare.models.Appointment;
+import com.lakeheadu.pcare.models.Diagnosis;
+import com.lakeheadu.pcare.models.Medical;
 import com.lakeheadu.pcare.models.Patient;
 
 @Repository
@@ -22,7 +26,7 @@ public class PatientDAOImpl implements PatientDAO
 	{
 		try
 		{
-			sessionFactory.getCurrentSession().save(patient);
+			sessionFactory.getCurrentSession().saveOrUpdate(patient);
 			return true;
 		}
 		catch(HibernateException e)
@@ -103,5 +107,109 @@ public class PatientDAOImpl implements PatientDAO
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean saveDiagnosis(Diagnosis diagnosis) {
+		try
+		{
+			sessionFactory.getCurrentSession().save(diagnosis);
+			return true;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Diagnosis object not saved successfully in database");
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean saveMedical(Medical medical) {
+		try
+		{
+			sessionFactory.getCurrentSession().save(medical);
+			return true;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Medical object not saved successfully in database");
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updatePatient(Patient patient) {
+		try
+		{
+			sessionFactory.getCurrentSession().merge(patient);
+			return true;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Patient object not updated successfully in database");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean saveAppointment(Appointment appointment) {
+		// TODO Auto-generated method stub
+		
+		try
+		{
+			sessionFactory.getCurrentSession().save(appointment);
+			return true;
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Appointment object not saved successfully in database");
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	  
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Appointment> getallDatesByEmail(String email) {
+		
+		
+		List<Appointment> listOfValue = new ArrayList<Appointment>();
+		try
+		{
+			Query q = sessionFactory.getCurrentSession().createQuery("from Appointment p where p.patientEmail = :emailId");
+			q.setString("emailId", email);
+		    
+			listOfValue = (List<Appointment>) q.list();
+			
+		}
+		catch(HibernateException e)
+		{
+			System.out.println("Unable to fetch list of appointment dates from database");
+			e.printStackTrace();
+		}
+		return listOfValue;
+	}
+	
+
+	@Override
+	public boolean removeAppointment(Appointment appointment) 
+	{
+		String hql = "delete Appointment where eventId = :id";
+	    Query q = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", appointment.getEventId());
+	  
+	    if(q.executeUpdate()==1)
+	    {
+	    	return true;
+	    }
+	    else
+	    {
+	    	return false;
+	    }
+		
+	
 	}
 }

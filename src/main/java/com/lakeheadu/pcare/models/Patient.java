@@ -62,11 +62,11 @@ public class Patient
 	@Column
 	private String contactNumber;
 	
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE}, mappedBy="patient")
 	private Medical medical;
 	
-	@Column
-	private String diagnosis;
+	@OneToMany(cascade = {CascadeType.MERGE}, mappedBy="patient")
+	private Collection<Diagnosis> diagnosisList = new ArrayList<Diagnosis>();
 	
 	@ManyToMany(mappedBy="patientsList", fetch = FetchType.LAZY)
 	private Collection<Doctor> doctorsList = new ArrayList<Doctor>();
@@ -80,7 +80,7 @@ public class Patient
 	}
 	
 	public Patient(String name, int age, LocalDate localDate, boolean gender, String password, String address, String city,
-			String emailId, String province, int visits, String contactNumber, String diagnosis) {
+			String emailId, String province, int visits, String contactNumber) {
 		super();
 		this.name = name;
 		this.age = age;
@@ -93,7 +93,14 @@ public class Patient
 		this.province = province;
 		this.visits = visits;
 		this.contactNumber = contactNumber;
-		this.diagnosis = diagnosis;
+	}
+	
+	public Medical getMedical() {
+		return medical;
+	}
+
+	public void setMedical(Medical medical) {
+		this.medical = medical;
 	}
 	
 	public int getId() {
@@ -108,12 +115,12 @@ public class Patient
 		this.name = name;
 	}
 	
-	public String getDiagnosis() {
-		return diagnosis;
+	public Collection<Diagnosis> getDiagnosisList() {
+		return diagnosisList;
 	}
 
-	public void setDiagnosis(String diagnosis) {
-		this.diagnosis = diagnosis;
+	public void setDiagnosisList(Collection<Diagnosis> diagnosisList) {
+		this.diagnosisList = diagnosisList;
 	}
 	
 	public Collection<Doctor> getDoctorsList() {

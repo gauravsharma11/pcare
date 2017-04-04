@@ -32,7 +32,93 @@ $(document).ready(function(){
 				},
 		});
 	})
+	
+	$('#medicalBtn').click(function(){
+		var startDate = $('#startDateVal').val();
+		var endDate = $('#endDateVal').val();
+		var reason = $('#reason').val();
+		var emailId = $('#email').val();
+		var docEmail = $('#docEmail').val();
+		
+		var data = { "startDate" : startDate, "endDate" :endDate, "reason" : reason, "emailId" :emailId, "docEmail" : docEmail};
+		
+		$.ajax({
+			type : "POST",
+			url : "requestMedical",
+		    data : data,
+			success : function(response) {
+				},
+		});
+	})
+	
+	$('#docMedicalBtn').click(function(){
+		var startDate = $('#startDateVal').val();
+		var endDate = $('#endDateVal').val();
+		var description = $('#description').val();
+		var emailId = $('#patientEmail').val();
+		var docEmail = $('#docEmail').val();
+		
+		var data = { "startDate" : startDate, "endDate" :endDate, "description" : description, "emailId" : emailId, "docEmail": docEmail };
+		
+		$.ajax({
+			type : "POST",
+			url : "submitMedical",
+		    data : data,
+		    success: function(response)
+	        {
+		        if(response)
+		        {
+			        $("#alert"+id).html(
+			        '<div id="alertSuccessfull" class="alert alert-success alert-dismissable">'+
+					'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+					'<i class="icon fa fa-check"></i>Medical Certificate to '+$("#patientNameM").val()+' has been added successfully. </div>');
+		        }
+		        else 
+		        {
+			        $("#alert"+id).html(
+			        '<div id="alertSuccessfull" class="alert alert-danger alert-dismissable">'+
+					'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+					'<i class="icon fa fa-warning"></i>Unable to add '+$("#patientNameM").val()+' medical certificate to system. </div>');
+		        }
+	        },
+	        error: function(e)
+	        {
+		        $("#alert"+id).html(
+		        '<div id="alertSuccessfull" class="alert alert-danger alert-dismissable">'+
+				'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'+
+				'<i class="icon fa fa-check"></i>There is some problem. Please contact administrator. </div>');
+	        }
+		});
+	})
+	
+	
 });
+
+function GetListOfAppointment(email){
+	 			$('#cancelAppointment').html('');
+	 			var result = $.ajax({
+	 			    url: "getlistOfAppointment",
+	 			    async: false,
+	 			    type: 'post',
+	 			  	data: "emailId="+email,
+	 			}).responseText;
+				
+				var data = JSON.parse(result);
+	 			
+	 			var toAppend = '';
+	 			$.each(data,function(i,o){
+	 			toAppend += '<option>'+o.eventDate+'</option>';
+	 			});
+				
+	 			$('#cancelAppointment').append(toAppend);
+	 			
+	 			var toAppend = '';
+	 			$.each(data,function(i,o){
+	 			toAppend += '<input type="hidden" id="'+o.eventDate+'" value="'+o.eventId+'">';
+	 			});
+	 			
+	 			$('#cancelAppointment').append(toAppend);
+	 } 
 
 /*By Sarwagya Khosla - Doctor Prescription Update*/
 function submitPrescription(id)
@@ -57,7 +143,9 @@ function submitPrescription(id)
 				  "endDate" : endDate,
 				  "url" : url
 				}
-				
+	
+	listOfdata["drugs"] = new Array();
+	
 	for(var i=0; i < noOfDrugs; i++)
 	{
 		var drugs = [];
@@ -66,14 +154,14 @@ function submitPrescription(id)
 		drugs[2] = $("#form_"+patientId+"_"+i+" option:selected" ).text();
 		drugs[3] = $("#qty_"+patientId+"_"+i).val();
 		
-		listOfdata["drugs"] = [{ 
+		listOfdata["drugs"][i] = { 
 						"name" : drugs[0],
 						"directions" : drugs[1],
 						"form" : drugs[2],
 						"quantity" : drugs[3]
-				}]
+				}
 	}
-
+	
 	$.ajax({
 	        type: "POST",
 	        url: "addPrescription",
@@ -119,14 +207,15 @@ function addRow(id)
 			'<label class="displayBlock">Drug Name '+i+'</label> <input type="text" id="drugName_'+id+'_'+i+'" class="form-control" placeholder="Enter Drug Name">'+
 			'</div></div>'+
 			'<div class="col-xs-3">'+
-			'<div class="marginBottom10"><label class="displayBlock">SIG</label>'+
+			'<div class="marginBottom10"><label class="displayBlock">Directions</label>'+
 			'<textarea id="sig_'+id+'_'+i+'" class="form-control" rows="1"'+
 			'placeholder="Click here to write"></textarea>'+
 			'</div></div>'+
 			' <div class="col-xs-3">'+
-            ' <div class="marginBottom10">' +
+            ' <div class="marginBottom10" style="margin-left:25px">' +
             ' <label class="displayBlock">Form</label>' +
             ' <select id="form_'+id+'_'+i+'" class="form-control">' +
+            '  <option value="*">Select a Form</option>' +
 			'  <option value="tablet">Tablet</option>' +
 			'  <option value="capsule">Capsule</option>' +
 			'  <option value="syrup">Syrup</option>' +
@@ -165,16 +254,12 @@ function datePickerInitialize(id)
 {
 	document.getElementById("prescriptionId_"+id).value="PR"+Math.floor(Math.random()*89999+10000);
 	
-	$("#visitDate_"+id).datetimepicker({
-        format: 'DD/MM/YYYY'
-    });
-	
 	$("#startDate_"+id).datetimepicker({
-        format: 'DD/MM/YYYY',
+		pickTime: false
     });
 	
 	$("#endDate_"+id).datetimepicker({
-        format: 'DD/MM/YYYY'
+		pickTime: false
     });
 }
 
@@ -199,3 +284,5 @@ function removeAllValue(id)
 		$('#rowCount_'+id).val(i);
 	}
 }
+
+

@@ -1,7 +1,6 @@
 package com.lakeheadu.pcare.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,14 +51,14 @@ public class Prescription {
 	private Doctor doctor;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Drug> drugs = new ArrayList<Drug>(); 
+	private Collection<Drug> drugs; 
 	
 	
-	public List<Drug> getDrugs() {
+	public Collection<Drug> getDrugs() {
 		return drugs;
 	}
 
-	public void setDrugs(List<Drug> drugs) {
+	public void setDrugs(Collection<Drug> drugs) {
 		this.drugs = drugs;
 	}
 

@@ -5,7 +5,11 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.lakeheadu.pcare.models.Doctor;
 import com.lakeheadu.pcare.models.Drug;
+import com.lakeheadu.pcare.models.Medical;
 import com.lakeheadu.pcare.models.Patient;
 import com.lakeheadu.pcare.models.Prescription;
 import com.lakeheadu.pcare.models.User;
@@ -53,7 +58,7 @@ public class DoctorController
 	{
 		 boolean isInserted=true;
 		    
-		 List<Drug> drugs = prescription.getDrugs();
+		 List<Drug> drugs = (List<Drug>) prescription.getDrugs();
 		 
 		 if(prescriptionService.saveDrugs(drugs))
 		 {
@@ -82,7 +87,7 @@ public class DoctorController
 						email = DefaultEmail.builder()
 						        .from(new InternetAddress("pcare.webhealth@gmail.com", "PCare"))
 						        .to(Lists.newArrayList(new InternetAddress("gaurav.sharma97798@gmail.com", prescribedPatient.getName())))
-						        .subject("noReply-E-Prescription")
+						        .subject("noReply_E-Prescription")
 						        .body("Your prescription has been added by Dr. "+ prescription.getDoctor().getName()+ "\nClick this link to view: " +url)
 						        .build();
 						
@@ -100,6 +105,59 @@ public class DoctorController
 		 }
 		 else
 			 return false;
+		
+		return isInserted;
+    }
+	
+	@RequestMapping(value="/submitMedical", method=RequestMethod.POST)
+	public @ResponseBody boolean addMedical(HttpServletRequest request)
+	{
+		boolean isInserted=true;
+		 
+		Doctor associatedDoctor = doctorService.getDoctorByEmail(request.getParameter("docEmail"));
+		Patient associatedPatient = patientService.getPatientByEmail(request.getParameter("emailId"));
+		
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		DateTime ed = formatter.parseDateTime(request.getParameter("endDate"));
+		DateTime sd = formatter.parseDateTime(request.getParameter("startDate"));
+			
+		Medical medical = associatedPatient.getMedical();
+		medical.setStartDate(sd.toDate());
+		medical.setEndDate(ed.toDate());
+		medical.setDescription(request.getParameter("description"));	
+		 
+		if(patientService.updatePatient(associatedPatient))
+		{
+			final String ACCOUNT_SID = "AC97f5a85bbc99b7e3ef8a7fc1399ae0d5";
+			final String AUTH_TOKEN = "43984f1e9cf71aa00296eb4d304902f3";
+					
+			Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+			
+			Message.creator(new PhoneNumber("+1"+"8077082057"), new PhoneNumber("+14388004089"), 
+			        "Your medical certificate has been added by Dr. "+ associatedDoctor.getName() +" to your pcare account. Log in to your account for more details").create();
+			
+			Email email = null;
+			String url = "http://localhost:8080/viewPrescription";
+			try 
+			{
+				email = DefaultEmail.builder()
+				        .from(new InternetAddress("pcare.webhealth@gmail.com", "PCare"))
+				        .to(Lists.newArrayList(new InternetAddress("gaurav.sharma97798@gmail.com", associatedPatient.getName())))
+				        .subject("noReply_E-Medical")
+				        .body("Your medical certificate has been added by Dr. "+ associatedDoctor.getName()+ "\nClick this link to view: " +url)
+				        .build();
+				
+				emailService.send(email);
+			} 
+			catch (UnsupportedEncodingException e) 
+			{
+				e.printStackTrace();
+			}
+			   
+			isInserted = true;
+		}
+		else
+			isInserted = false;
 		
 		return isInserted;
     }

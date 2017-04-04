@@ -3,11 +3,6 @@ package com.lakeheadu.pcare.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
 import org.dummycreator.DummyCreator;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +10,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import com.lakeheadu.pcare.models.Diagnosis;
 import com.lakeheadu.pcare.models.Doctor;
 import com.lakeheadu.pcare.models.Patient;
 import com.lakeheadu.pcare.models.Staff;
@@ -82,17 +78,32 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 		String hashPassword = "";
 		hashPassword = encryptionService.encrypt(value);
 
-		Patient patient1 = new Patient("Gaurav Sharma", 25, new LocalDate (1991, 12, 11), true, hashPassword , "John Street", "Thunder Bay", "gaurav.sharma19@yahoo.com", "Ontario", 5, "8077082057","Dengu");
-		Patient patient2 = new Patient("Siddhant", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Phillip Street", "Toronto", "sid19@yahoo.com", "Ontario", 5, "8072552672","Tuberculosis");
-		Patient patient3 = new Patient("S grewal", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Pasteur Street", "Waterloo", "grewal@yahoo.com", "Ontario", 5, "8073562057","Malaria");
-		Patient patient4 = new Patient("Harish", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Oliver Road", "Hamilton", "harish@yahoo.com", "Ontario", 5, "8074567980","Dengu");
-		Patient patient5 = new Patient("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667","Tuberculosis");
-		Patient patient6 = new Patient("Bob", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607","Dengu");
-		Patient patient7 = new Patient("Jacky", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603","Malaria");
-		Patient patient8 = new Patient("Bruce", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837","Malaria");
-		Patient patient9 = new Patient("John", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810","Tuberculosis");
-		Patient patient10 = new Patient("Ujjval", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Varsity row", "Oshawa", "ujjval@yahoo.com", "Ontario", 5, "8072226780","Dengu");
+		Patient patient1 = new Patient("Gaurav Sharma", 25, new LocalDate (1991, 12, 11), true, hashPassword , "John Street", "Thunder Bay", "gaurav.sharma97798@gmail.com", "Ontario", 5, "8077082057");
+		Patient patient2 = new Patient("Siddhant", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Phillip Street", "Toronto", "sid19@yahoo.com", "Ontario", 5, "8072552672");
+		Patient patient3 = new Patient("S grewal", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Pasteur Street", "Waterloo", "grewal@yahoo.com", "Ontario", 5, "8073562057");
+		Patient patient4 = new Patient("Harish", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Oliver Road", "Hamilton", "harish@yahoo.com", "Ontario", 5, "8074567980");
+		Patient patient5 = new Patient("Popat Laal ", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Machar Street", "Windsor", "pacre@yahoo.com", "Ontario", 5, "8074782667");
+		Patient patient6 = new Patient("Bob", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Mcbean Street", "Kingston", "adminlte@yahoo.com", "Ontario", 5, "8073562607");
+		Patient patient7 = new Patient("Jacky", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Rupert Street", "Kitchener", "sarwagya@yahoo.com", "Ontario", 5, "8077082603");
+		Patient patient8 = new Patient("Bruce", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Algoma South", "Missisauga", "ameya@yahoo.com", "Ontario", 5, "8073451837");
+		Patient patient9 = new Patient("John", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Red river", "Orillia", "atish@yahoo.com", "Ontario", 5, "8077869810");
+		Patient patient10 = new Patient("Ujjval", 25, new LocalDate (1991, 12, 11), true,hashPassword , "Varsity row", "Oshawa", "ujjval@yahoo.com", "Ontario", 5, "8072226780");
 		
+		LocalDate ld = new LocalDate (2017, 04, 04);
+		
+		Diagnosis diagnosis = new Diagnosis();
+		diagnosis.setDiagnosedAs("Diabetes Mellitus");
+		diagnosis.setVisitDate(ld.toDate());
+		diagnosis.setHistory("Diabetic");
+		diagnosis.setSymptoms("Swelling on foot");
+		diagnosis.setPatient(patient1);
+		
+		Diagnosis diagnosis1 = new Diagnosis();
+		diagnosis1.setDiagnosedAs("Diabetes Mellitus");
+		diagnosis1.setVisitDate(ld.toDate());
+		diagnosis1.setHistory("Diabetic");
+		diagnosis1.setSymptoms("Swelling on foot");
+		diagnosis1.setPatient(patient2);
 		
 		Doctor doctor1 = new Doctor("Richard", "Neurosurgeon", new LocalDate (1991, 12, 11), true, hashPassword ,"John Street", "Thunder Bay", "Ontario", "8073569230", "rich45@gmail.com","a");
 		
@@ -144,7 +155,7 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 		doctor10.getPatientsList().add(patient9);
 		doctor10.getPatientsList().add(patient10);
 		
-		User user1 = new User("gaurav.sharma19@yahoo.com", hashPassword, "patient", "Gaurav");
+		User user1 = new User("gaurav.sharma97798@gmail.com", hashPassword, "patient", "Gaurav");
 		User user2 = new User("rich45@gmail.com", hashPassword, "doctor", "Richard");
 		
 		users.add(user1);
@@ -206,6 +217,8 @@ public class DummyDataCreator implements ApplicationListener<ContextRefreshedEve
 		patients.add(patient10);
 		
 		patientService.savePatients(patients);
+		patientService.saveDiagnosis(diagnosis);
+		patientService.saveDiagnosis(diagnosis1);
 		doctorService.saveDoctors(doctors);
 	}
 	

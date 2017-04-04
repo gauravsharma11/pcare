@@ -13,6 +13,18 @@ a:HOVER	{
 	text-decoration: none;
 }
 
+.marginTop10 {
+	margin-top: 10px;
+}
+
+.marginTop20 {
+	margin-top: 20px;
+}
+
+.marginTop25 {
+	margin-top: 25px;
+}
+
 .form-signinLI {
   max-width: 420px;
   padding: 30px 38px 30px;

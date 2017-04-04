@@ -11,20 +11,22 @@ Author: Sarwagya Khosla
 <html>
 	<head>
 		<title>Patient Care</title>
+		<link rel="stylesheet" type='text/css' href="<c:url value="/resources/css/bootstrap.min.css"/>"  >
 		<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/font-awesome.min.css"/>"  />
-		<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/custom.css"/>" />
-		<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/bootstrap.css"/>" />
 		<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/style.css"/>" media='all'  />
 		<link rel='stylesheet' type='text/css' href="<c:url value="http://fonts.googleapis.com/css?family=Poiret+One"/>" >
 		<link rel='stylesheet' type='text/css' href="<c:url value="http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic"/>" >
-<%-- 		<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/AdminLTE.min.css"/>"  /> --%>
+		<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/custom.css"/>" />
 		<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/LoginPage.css"/>"/>
-	
-		<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.79639.js"/>"></script>
+		<link rel="stylesheet" type='text/css' href="<c:url value="/resources/css/bootstrap-datetimepicker.css"/>"  >
+		
+		
+		<script type="text/javascript" src="/resources/js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="/resources/js/moment.js"></script>
+		<script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/resources/js/bootstrap-datetimepicker.js"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/common/common.js"/>"></script>
+	
 	</head>
 	<body class="customFont">
 	
@@ -94,10 +96,10 @@ Author: Sarwagya Khosla
 				
 				<div class="heading">
 				<h2 class="customFont">Patient Information</h2>
-				<p class="customFont">Please enter patients information to create a secure account.</p>
+				<p class="customFont marginTop10">Please enter patients information to create a secure account.</p>
 				</div>
 				
-				<form class="marginTop" role="form">
+				<form class="marginTop25" role="form">
 				
 				<div class="row">
 					<div class="col-xs-4 marginTop padding20px">
@@ -145,12 +147,17 @@ Author: Sarwagya Khosla
 					    </div> 
 					</div>
 				</div>		
-							<div class="row">
+				<div class="row">
 					<div class="col-xs-4 marginTop">
-							<div class="form-group">
-								<label class="control-label"> Date of Birth</label>
-								<input class="form-control" data-type="input" type="text" name="dateOfBirth" id="dateOfBirth" value="" placeholder="Date of birth">
-						   </div>
+						<div class="form-group">
+							<label class="control-label"> Date of Birth</label>
+					        <div class='input-group date' id="dateOfBirth">
+			                    <input type='text' class="form-control" id="dateOfBirthVal"/>
+			                    <span class="input-group-addon">
+			                        <span class="glyphicon glyphicon-calendar"></span>
+			                    </span>
+			                </div>
+					    </div>
 					</div>
 					<div class="col-xs-2"></div>
 					<div class="col-xs-4 marginTop">						   
@@ -159,8 +166,6 @@ Author: Sarwagya Khosla
 							<input class="form-control" data-type="input" type="text" name="province" id="province" value="" placeholder="Province">
 					    </div> 
 					</div>
-					
-					
 				</div>		
 				<div class="row">
 					<div class="col-xs-6 marginTop">
@@ -244,5 +249,19 @@ Author: Sarwagya Khosla
 				</div>
 			</div>
 		</footer>
+		<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/moment.js" />"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/bootstrap-datetimepicker.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/modernizr.custom.79639.js"/>"></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/common/common.js"/>"></script>
+		<script type="text/javascript">
+			$("#dateOfBirth").datetimepicker({
+		        format: 'DD/MM/YYYY',
+		        pickTime: false
+		    });
+			
+		</script>
 	</body>
 </html>
